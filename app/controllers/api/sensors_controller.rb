@@ -3,19 +3,16 @@ module Api
 
     protect_from_forgery with: :null_session
 
-    # GET /api/sensors
     def index
       sensors = Sensor.all
       render json: sensors
     end
 
-    # GET /api/sensors/:id
     def show
       sensor = Sensor.find_by(id: params[:id])
       render json: sensor
     end
 
-    # POST /api/sensors
     def create
       sensor = Sensor.new(sensor_params)
 
@@ -26,7 +23,6 @@ module Api
       end
     end
 
-    #PUT /api/sensor/:id
     def update
       sensor = Sensor.find_by(id: params[:id])
 
@@ -37,7 +33,6 @@ module Api
       end
     end
 
-    #DELETE /api/sensor/:id
     def destroy
       sensor = Sensor.find_by(id: params[:id])
 

@@ -9,22 +9,22 @@ Sensor.delete_all
 
 sensors = Sensor.create([
 	{
-		latitude: "Sensor 1 Latitude",
-		longitude: "Sensor 1 longitude",
+		latitude: 42.3,
+		longitude: -26,
 		location: "Sensor 1 location",
 		ip_address: "0.0.0.1",
 		information: "Sensor 1 information"
 	},
 	{
-		latitude: "Sensor 2 Latitude",
-		longitude: "Sensor 2 longitude",
+		latitude: 21.1,
+		longitude: 24.4,
 		location: "Sensor 2 location",
 		ip_address: "0.0.0.2",
 		information: "Sensor 2 information"
 	},
 	{
-		latitude: "Sensor 3 Latitude",
-		longitude: "Sensor 3 longitude",
+		latitude: -5.8,
+		longitude: 9.6,
 		location: "Sensor 3 location",
 		ip_address: "0.0.0.3",
 		information: "Sensor 3 information"

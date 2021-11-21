@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_11_170928) do
+ActiveRecord::Schema.define(version: 2021_11_21_115116) do
 
   create_table "sensors", charset: "utf8", force: :cascade do |t|
-    t.string "latitude"
-    t.string "longitude"
     t.string "location"
     t.string "ip_address"
     t.text "information"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "latitude", precision: 10, scale: 6
+    t.decimal "longitude", precision: 10, scale: 6
   end
 
 end
