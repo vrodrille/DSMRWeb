@@ -1,5 +1,6 @@
 import React from 'react'
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
+import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet'
+import { JAEN, ZOOM_LEVEL } from '../../constants'
 /**
  * This imports and the below DefaultIcon assignation was needed so
  * React-Leaflet could work. There's an issue concerning the use of
@@ -20,18 +21,29 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon
 
+function ClickLocation() {
+  const map = useMapEvents({
+    dblclick: (ev) => {
+      let latlng = map.mouseEventToLatLng(ev.originalEvent)
+      console.log(latlng.lat + ', ' + latlng.lng)
+    }
+  })
+  return null
+}
+
 export default function Map(){
   return(
-    <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+    <MapContainer center={[JAEN.latitude, JAEN.longitude]} zoom={ZOOM_LEVEL}>
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       />
-      <Marker position={[51.505, -0.09]}>
+      <Marker position={[37.7732, -3.7888]}>
         <Popup>
           A pretty CSS3 popup. <br /> Easily customizable.
         </Popup>
       </Marker>
+      <ClickLocation />
     </MapContainer>
   )
 }
