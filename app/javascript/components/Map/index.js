@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet'
 import { JAEN, ZOOM_LEVEL } from '../../constants'
+import getSensors from '../../services/getSensors'
 /**
  * This imports and the below DefaultIcon assignation was needed so
  * React-Leaflet could work. There's an issue concerning the use of
@@ -32,17 +33,35 @@ function ClickLocation() {
 }
 
 export default function Map(){
+
+  const [sensors, setSensors] = useState([])
+  const [sensorsLoaded, setSensorsLoaded] = useState(false)
+
+  useEffect(() => {
+    getSensors()
+      .then( data => {
+        setSensors(data)
+        setSensorsLoaded(true)     
+      })
+  }, [])
+
+  const addMarkersForSensors = sensors.map(sensor => {
+    return (
+      <Marker key={sensor.id} position={[sensor.latitude,sensor.longitude]}>
+        <Popup>
+          This is the popup for sensor {sensor.id}
+        </Popup>
+      </Marker>
+    )
+  })
+
   return(
     <MapContainer center={[JAEN.latitude, JAEN.longitude]} zoom={ZOOM_LEVEL}>
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       />
-      <Marker position={[37.7732, -3.7888]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
+      { sensorsLoaded && addMarkersForSensors }
       <ClickLocation />
     </MapContainer>
   )
