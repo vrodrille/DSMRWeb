@@ -33,15 +33,15 @@ function ClickLocation() {
 }
 
 function convertToDms(dd, isLng) {
-  var dir = dd < 0
+  let dir = dd < 0
     ? isLng ? 'W' : 'S'
     : isLng ? 'E' : 'N'
 
-  var absDd = Math.abs(dd)
-  var deg = absDd | 0
-  var frac = absDd - deg
-  var min = (frac * 60) | 0
-  var sec = frac * 3600 - min * 60
+  let absDd = Math.abs(dd)
+  let deg = absDd | 0
+  let frac = absDd - deg
+  let min = (frac * 60) | 0
+  let sec = frac * 3600 - min * 60
   // Round it to 2 decimal points.
   sec = Math.round(sec * 100) / 100
   return deg + "°" + min + "'" + sec + '"' + dir
