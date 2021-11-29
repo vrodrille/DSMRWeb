@@ -64,9 +64,27 @@ export default function Map(){
     return (
       <Marker key={sensor.id} position={[sensor.latitude,sensor.longitude]}>
         <Popup>
-          This is the popup for sensor {sensor.id}
-          <p>{sensor.latitude} is equal to {convertToDms(sensor.latitude,false)}</p>
-          <p>{sensor.longitude} is equal to {convertToDms(sensor.longitude,true)}</p>
+          <h1> Sensor-ID: {sensor.id}</h1>
+          <div className="">
+            <p>Latitud:</p>
+            <p>{convertToDms(sensor.latitude,false)}</p>
+            <p>Longitud:</p>
+            <p>{convertToDms(sensor.longitude,true)}</p>
+            <p>Localización:</p>
+            <p>{sensor.location}</p>
+            <p>Dirección IP:</p>
+            <p>{sensor.ip_address}</p>
+          </div>
+          <h2>Información</h2>
+          <div className="">
+            <p>{sensor.information}</p>
+          </div>
+          <button className="btn btn-outline-primary">
+            Editar
+          </button>
+          <button className="btn btn-outline-danger">
+            Eliminar
+          </button>
         </Popup>
       </Marker>
     )
