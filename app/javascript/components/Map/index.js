@@ -51,14 +51,10 @@ export default function Map(){
         <Popup>
           <h1> Sensor-ID: {sensor.id}</h1>
           <div className="">
-            <p>Latitud:</p>
-            <p>{convertToDms(sensor.latitude)}</p>
-            <p>Longitud:</p>
-            <p>{convertToDms(sensor.longitude,true)}</p>
-            <p>Localización:</p>
-            <p>{sensor.location}</p>
-            <p>Dirección IP:</p>
-            <p>{sensor.ip_address}</p>
+            <p>Latitud: {convertToDms(sensor.latitude)}</p>
+            <p>Longitud: {convertToDms(sensor.longitude,true)}</p>
+            <p>Localización: {sensor.location}</p>
+            <p>Dirección IP: {sensor.ip_address}</p>
           </div>
           <h2>Información</h2>
           <div className="">
