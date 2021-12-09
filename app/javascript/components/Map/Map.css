@@ -3,6 +3,16 @@
   height: 100vh;
 }
 
-.leaflet-popup{
+.leaflet-popup {
   margin-left: 13px;
+}
+
+.leaflet-popup-content:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.sensor-popup .leaflet-popup-content{
+  min-width: 250px;
 }

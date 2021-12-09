@@ -48,22 +48,23 @@ export default function Map(){
   const addMarkersForSensors = sensors.map(sensor => {
     return (
       <Marker key={sensor.id} position={[sensor.latitude,sensor.longitude]}>
-        <Popup>
-          <h1> Sensor-ID: {sensor.id}</h1>
+        <Popup className="sensor-popup">
+          <h1 className="h5"> Sensor-ID: {sensor.id}</h1>
           <div className="">
-            <p>Latitud: {convertToDms(sensor.latitude)}</p>
-            <p>Longitud: {convertToDms(sensor.longitude,true)}</p>
-            <p>Localización: {sensor.location}</p>
-            <p>Dirección IP: {sensor.ip_address}</p>
+            <p><strong>Latitud:</strong> {convertToDms(sensor.latitude)}</p>
+            <p><strong>Longitud:</strong> {convertToDms(sensor.longitude,true)}</p>
+            <p><strong>Localización:</strong> {sensor.location}</p>
+            <p><strong>Dirección IP:</strong> {sensor.ip_address}</p>
           </div>
-          <h2>Información</h2>
+          <h2 className="h6 text-secondary">Información</h2>
           <div className="">
             <p>{sensor.information}</p>
           </div>
-          <button className="btn btn-outline-primary">
+          <hr />
+          <button className="btn btn-sm btn-primary float-start">
             Editar
           </button>
-          <button className="btn btn-outline-danger">
+          <button className="btn btn-sm btn-link text-danger float-end">
             Eliminar
           </button>
         </Popup>
