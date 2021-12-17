@@ -4,12 +4,16 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { Modal } from 'bootstrap'
 import App from '../components/App'
+
+let element = document.createElement('div')
+element.setAttribute('id', 'root')
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <App />,
-    document.body.appendChild(document.createElement('div')),
+    document.body.appendChild(element),
   )
 })
