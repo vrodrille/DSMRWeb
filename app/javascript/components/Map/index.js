@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet'
 import { JAEN_LOCALIZATION, ZOOM_LEVEL, convertToDms } from '../../utils/map'
 import getSensors from '../../services/getSensors'
+
+import DeleteModal from '../DeleteModal'
+import deleteSensor from '../../services/deleteSensor'
+
 /**
  * This imports and the below DefaultIcon assignation was needed so
  * React-Leaflet could work. There's an issue concerning the use of
@@ -37,6 +41,17 @@ export default function Map(){
   const [sensors, setSensors] = useState([])
   const [sensorsLoaded, setSensorsLoaded] = useState(false)
 
+  const [sensorSelected, setSensorSelected] = useState(null)
+
+  const handleDelete = ({sensor}) => {
+    let sensorsArray = sensors
+    sensorsArray = sensorsArray.filter( element => {
+      return element.id != sensor.id
+    })
+    setSensors(sensorsArray)
+    deleteSensor(sensor)
+  }
+
   useEffect(() => {
     getSensors()
       .then( data => {
@@ -47,24 +62,28 @@ export default function Map(){
 
   const addMarkersForSensors = sensors.map(sensor => {
     return (
-      <Marker key={sensor.id} position={[sensor.latitude,sensor.longitude]}>
+      <Marker key={sensor.id} position={[sensor.latitude,sensor.longitude]} eventHandlers={{
+        click: (e) => {
+          setSensorSelected(sensor)
+        },
+      }}>
         <Popup className="sensor-popup">
           <h1 className="h5"> Sensor-ID: {sensor.id}</h1>
-          <div className="">
+          <div>
             <p><strong>Latitud:</strong> {convertToDms(sensor.latitude)}</p>
             <p><strong>Longitud:</strong> {convertToDms(sensor.longitude,true)}</p>
             <p><strong>Localización:</strong> {sensor.location}</p>
             <p><strong>Dirección IP:</strong> {sensor.ip_address}</p>
           </div>
           <h2 className="h6 text-secondary">Información</h2>
-          <div className="">
+          <div>
             <p>{sensor.information}</p>
           </div>
           <hr />
-          <button className="btn btn-sm btn-primary float-start">
+          <button type="button" className="btn btn-sm btn-primary float-start">
             Editar
           </button>
-          <button className="btn btn-sm btn-link text-danger float-end">
+          <button type="button" className="btn btn-sm btn-link text-danger float-end" data-bs-toggle="modal" data-bs-target="#deleteModal">
             Eliminar
           </button>
         </Popup>
@@ -73,13 +92,16 @@ export default function Map(){
   })
 
   return(
-    <MapContainer center={[JAEN_LOCALIZATION.latitude, JAEN_LOCALIZATION.longitude]} zoom={ZOOM_LEVEL}>
-      <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-      />
-      { sensorsLoaded && addMarkersForSensors }
-      <ClickLocation />
-    </MapContainer>
+    <>
+      <MapContainer center={[JAEN_LOCALIZATION.latitude, JAEN_LOCALIZATION.longitude]} zoom={ZOOM_LEVEL}>
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        />
+        { sensorsLoaded && addMarkersForSensors }
+        <ClickLocation />
+      </MapContainer>
+      { sensorSelected && <DeleteModal sensor={sensorSelected} onDelete={handleDelete}/> }
+    </>
   )
 }
