@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM  from 'react-dom'
+import './CreateUpdateModal.css'
 
 function CreateUpdateModal({ latitudeLongitude }){
   return(
@@ -27,6 +28,28 @@ function CreateUpdateModal({ latitudeLongitude }){
                 <input className="form-control" placeholder={latitudeLongitude ? latitudeLongitude.lng: null} disabled/>
               </div>
             </div>
+            <div className="row g-3 align-items-center">
+              <div className="col-auto">
+                <label className="col-form-label" htmlFor="inputLocation">Localización:</label>
+              </div>
+              <div className="col-auto">
+                <input className="form-control" id="inputLocation"/>
+              </div>
+            </div>
+            <div className="row g-3 align-items-center">
+              <div className="col-auto">
+                <label className="col-form-label" htmlFor="inputIP">Dirección IP:</label>
+              </div>
+              <div className="col-auto">
+                <input className="form-control" id="inputIP"/>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <h6 className="info-section-header"> Información </h6>
+          <hr />
+          <div className="input-group">
+            <textarea className="form-control info-text-area"></textarea>
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-primary">Crear</button>
