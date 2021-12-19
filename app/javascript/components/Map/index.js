@@ -26,7 +26,7 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon
 
-function ClickLocation() {
+const ClickLocation = () => {
   const map = useMapEvents({
     dblclick: (ev) => {
       let latlng = map.mouseEventToLatLng(ev.originalEvent)
@@ -90,7 +90,7 @@ export default function Map(){
 
   return(
     <>
-      <MapContainer center={[JAEN_LOCALIZATION.latitude, JAEN_LOCALIZATION.longitude]} zoom={ZOOM_LEVEL}>
+      <MapContainer center={[JAEN_LOCALIZATION.latitude, JAEN_LOCALIZATION.longitude]} zoom={ZOOM_LEVEL} doubleClickZoom={false}>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
