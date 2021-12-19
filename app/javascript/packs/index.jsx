@@ -6,6 +6,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Modal } from 'bootstrap'
+/* The below line was added in order to be able to use reference bootstrap modules anywhere in the code 
+   without having to import the module on every JavaScript file. For example, in order to reference bootstrap.Modal
+   in Map.js without having to include the above import on the file.
+*/
+window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js')
 import App from '../components/App'
 
 let element = document.createElement('div')

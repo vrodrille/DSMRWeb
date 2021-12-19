@@ -6,6 +6,8 @@ import getSensors from '../../services/getSensors'
 import DeleteModal from '../DeleteModal'
 import deleteSensor from '../../services/deleteSensor'
 
+import CreateUpdateModal from '../CreateUpdateModal'
+
 /**
  * This imports and the below DefaultIcon assignation was needed so
  * React-Leaflet could work. There's an issue concerning the use of
@@ -42,6 +44,11 @@ export default function Map(){
       }
     })
     return null
+  }
+
+  const showModal = () => {
+    let myModal = new bootstrap.Modal(document.getElementById('createUpdateModal'), {})
+    myModal.show()
   }
 
   const handleDelete = ({sensor}) => {
@@ -100,6 +107,8 @@ export default function Map(){
         <ClickLocation />
       </MapContainer>
       { sensorSelected && <DeleteModal sensor={sensorSelected} onDelete={handleDelete}/> }
+      <CreateUpdateModal latitudeLongitude={latLong}/>
+      { latLong && showModal() }
     </>
   )
 }
