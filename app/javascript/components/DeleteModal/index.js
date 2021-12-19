@@ -15,7 +15,7 @@ function DeleteModal({ sensor, onDelete }){
             <p>Vas a eliminar el sensor con ID {sensor.id}, ¿estás seguro?</p>
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={function(){onDelete({sensor})}}>Eliminar</button>
+            <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={() => onDelete({sensor})}>Eliminar</button>
             <button type="button" className="btn btn-sm btn-link text-secondary" data-bs-dismiss="modal">Cancelar</button>
           </div>
         </div>
