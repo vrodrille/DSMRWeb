@@ -44,12 +44,13 @@ export default function Map(){
   const [sensorSelected, setSensorSelected] = useState(null)
 
   const handleDelete = ({sensor}) => {
-    let sensorsArray = sensors
-    sensorsArray = sensorsArray.filter( element => {
-      return element.id != sensor.id
-    })
-    setSensors(sensorsArray)
     deleteSensor(sensor)
+      .then( () => {
+        let sensorsArray = sensors.filter( element => {
+          return element.id != sensor.id
+        })
+        setSensors(sensorsArray)  
+      })
   }
 
   useEffect(() => {
@@ -69,16 +70,12 @@ export default function Map(){
       }}>
         <Popup className="sensor-popup">
           <h1 className="h5"> Sensor-ID: {sensor.id}</h1>
-          <div>
-            <p><strong>Latitud:</strong> {convertToDms(sensor.latitude)}</p>
-            <p><strong>Longitud:</strong> {convertToDms(sensor.longitude,true)}</p>
-            <p><strong>Localización:</strong> {sensor.location}</p>
-            <p><strong>Dirección IP:</strong> {sensor.ip_address}</p>
-          </div>
+          <p><strong>Latitud:</strong> {convertToDms(sensor.latitude)}</p>
+          <p><strong>Longitud:</strong> {convertToDms(sensor.longitude,true)}</p>
+          <p><strong>Localización:</strong> {sensor.location}</p>
+          <p><strong>Dirección IP:</strong> {sensor.ip_address}</p>
           <h2 className="h6 text-secondary">Información</h2>
-          <div>
-            <p>{sensor.information}</p>
-          </div>
+          <p>{sensor.information}</p>
           <hr />
           <button type="button" className="btn btn-sm btn-primary float-start">
             Editar
