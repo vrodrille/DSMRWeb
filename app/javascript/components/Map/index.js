@@ -59,6 +59,7 @@ export default function Map(){
         })
         setSensors(sensorsArray)  
       })
+      setSensorSelected(null)
   }
 
   useEffect(() => {
