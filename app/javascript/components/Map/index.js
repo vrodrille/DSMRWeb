@@ -26,22 +26,23 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon
 
-const ClickLocation = () => {
-  const map = useMapEvents({
-    dblclick: (ev) => {
-      let latlng = map.mouseEventToLatLng(ev.originalEvent)
-      console.log(latlng.lat + ', ' + latlng.lng)
-    }
-  })
-  return null
-}
-
 export default function Map(){
 
   const [sensors, setSensors] = useState([])
   const [sensorsLoaded, setSensorsLoaded] = useState(false)
 
   const [sensorSelected, setSensorSelected] = useState(null)
+  const [latLong, setLatLong] = useState(null)
+
+  const ClickLocation = () => {
+    const map = useMapEvents({
+      dblclick: (ev) => {
+        let latlng = map.mouseEventToLatLng(ev.originalEvent)
+        setLatLong(latlng)
+      }
+    })
+    return null
+  }
 
   const handleDelete = ({sensor}) => {
     deleteSensor(sensor)
