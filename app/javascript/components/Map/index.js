@@ -52,6 +52,7 @@ export default function Map(){
   }
 
   const handleDelete = ({sensor}) => {
+    setSensorSelected(null)
     deleteSensor(sensor)
       .then( () => {
         let sensorsArray = sensors.filter( element => {
@@ -59,7 +60,6 @@ export default function Map(){
         })
         setSensors(sensorsArray)  
       })
-      setSensorSelected(null)
   }
 
   useEffect(() => {
@@ -75,6 +75,9 @@ export default function Map(){
       <Marker key={sensor.id} position={[sensor.latitude,sensor.longitude]} eventHandlers={{
         click: (e) => {
           setSensorSelected(sensor)
+        },
+        popupclose: (e) => {
+          setSensorSelected(null)
         },
       }}>
         <Popup className="sensor-popup">
