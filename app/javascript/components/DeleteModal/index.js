@@ -3,7 +3,7 @@ import ReactDOM  from 'react-dom'
 
 function DeleteModal({ sensor, onDelete }){
   return (
-    <div className="modal fade" id="deleteModal" tabIndex="-1" role="dialog">
+    <div className="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" role="dialog">
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content">
           <div className="modal-header">

@@ -51,6 +51,10 @@ export default function Map(){
     myModal.show()
   }
 
+  const handleClose = () => {
+    if (latLong) setLatLong(null)
+  }
+
   const handleDelete = ({sensor}) => {
     setSensorSelected(null)
     deleteSensor(sensor)
@@ -111,7 +115,7 @@ export default function Map(){
         <ClickLocation />
       </MapContainer>
       { sensorSelected && <DeleteModal sensor={sensorSelected} onDelete={handleDelete}/> }
-      <CreateUpdateModal latitudeLongitude={latLong}/>
+      <CreateUpdateModal latitudeLongitude={latLong} onClose={handleClose}/>
       { latLong && showModal() }
     </>
   )

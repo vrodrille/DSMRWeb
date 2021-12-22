@@ -2,14 +2,14 @@ import React from 'react'
 import ReactDOM  from 'react-dom'
 import './CreateUpdateModal.css'
 
-function CreateUpdateModal({ latitudeLongitude }){
+function CreateUpdateModal({ latitudeLongitude, onClose }){
   return(
-    <div className="modal fade" id="createUpdateModal" tabIndex="-1">
+    <div className="modal fade" id="createUpdateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1">
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">Creación de sensor</h5>
-            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={onClose}></button>
           </div>
           <div className="modal-body">
             <div className="row g-3 align-items-center">
@@ -52,8 +52,8 @@ function CreateUpdateModal({ latitudeLongitude }){
             <textarea className="form-control info-text-area"></textarea>
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-primary">Crear</button>
-            <button type="button" className="btn btn-sm btn-link text-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" className="btn btn-primary">Crear</button>
+            <button type="button" className="btn btn-sm btn-link text-secondary" data-bs-dismiss="modal" onClick={onClose}>Cancelar</button>
           </div>
         </div>
       </div>
@@ -62,9 +62,9 @@ function CreateUpdateModal({ latitudeLongitude }){
 }
 
 
-export default function CreateUpdateModalPortal ({ latitudeLongitude }) {
+export default function CreateUpdateModalPortal ({ latitudeLongitude, onClose }) {
   return ReactDOM.createPortal(
-    <CreateUpdateModal latitudeLongitude={latitudeLongitude}/>,
+    <CreateUpdateModal latitudeLongitude={latitudeLongitude} onClose={onClose}/>,
     document.getElementById('root')
   )
 }
