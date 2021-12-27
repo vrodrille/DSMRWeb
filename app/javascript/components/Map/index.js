@@ -81,7 +81,6 @@ export default function Map(){
         setSensors(data)
         setSensorsLoaded(true)     
       })
-
     let myModal = new bootstrap.Modal(document.getElementById('createUpdateModal'), {})
     setModal(myModal)
   }, [])
@@ -89,14 +88,12 @@ export default function Map(){
   const addMarkersForSensors = sensors.map(sensor => {
     return (
       <Marker key={sensor.id} position={[sensor.latitude,sensor.longitude]} eventHandlers={{
-        click: (e) => {
+        popupopen: (e) => {
           setSensorSelected(sensor)
         },
         popupclose: (e) => {
-          //PROBLEMA
-          if (!e.popup.isPopupOpen())
-            setSensorSelected(null)
-        },
+          setSensorSelected(null)
+        }
       }}>
         <Popup className="sensor-popup">
           <h1 className="h5"> Sensor-ID: {sensor.id}</h1>
