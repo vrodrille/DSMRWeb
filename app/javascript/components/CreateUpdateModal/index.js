@@ -3,6 +3,15 @@ import ReactDOM  from 'react-dom'
 import './CreateUpdateModal.css'
 import createSensor from '../../services/createSensor'
 
+const clearInputFields = () => {
+  let fields = document.getElementsByTagName('input')
+  let length = fields.length
+  while(length--)
+    if (fields[length].type == "text") fields[length].value = ''
+  let textAreaField = document.getElementsByTagName('textarea')
+  textAreaField[0].value = ''
+}
+
 function CreateUpdateModal({ latitudeLongitude, onClose, addSensorAndCloseModal }){
 
   const [sensorInModal, setSensorInModal] = useState({latitude: null, longitude: null, location: null, ip_address: null, information: null})
@@ -22,6 +31,7 @@ function CreateUpdateModal({ latitudeLongitude, onClose, addSensorAndCloseModal 
     createSensor(sensorInModal)
       .then( (data) => {
         addSensorAndCloseModal(data)
+        clearInputFields()
       })
       .catch( (err) => {
         console.log(err)
