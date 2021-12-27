@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import ReactDOM  from 'react-dom'
 import './CreateUpdateModal.css'
+import createSensor from '../../services/createSensor'
 
-function CreateUpdateModal({ latitudeLongitude, onClose }){
+function CreateUpdateModal({ latitudeLongitude, onClose, addSensorAndCloseModal }){
 
   const [sensorInModal, setSensorInModal] = useState({latitude: null, longitude: null, location: null, ip_address: null, information: null})
 
@@ -18,7 +19,13 @@ function CreateUpdateModal({ latitudeLongitude, onClose }){
 
   const handleSubmit = (ev) => {
     ev.preventDefault()
-    console.log(sensorInModal)
+    createSensor(sensorInModal)
+      .then( (data) => {
+        addSensorAndCloseModal(data)
+      })
+      .catch( (err) => {
+        console.log(err)
+      })
   }
 
   return(
@@ -82,9 +89,9 @@ function CreateUpdateModal({ latitudeLongitude, onClose }){
 }
 
 
-export default function CreateUpdateModalPortal ({ latitudeLongitude, onClose }) {
+export default function CreateUpdateModalPortal ({ latitudeLongitude, onClose, addSensorAndCloseModal }) {
   return ReactDOM.createPortal(
-    <CreateUpdateModal latitudeLongitude={latitudeLongitude} onClose={onClose}/>,
+    <CreateUpdateModal latitudeLongitude={latitudeLongitude} onClose={onClose} addSensorAndCloseModal={addSensorAndCloseModal} />,
     document.getElementById('root')
   )
 }

@@ -15,7 +15,7 @@ import CreateUpdateModal from '../CreateUpdateModal'
  * own path algorithm. Being this one of the few solutions of this problem.
  * For more information check: https://github.com/PaulLeCam/react-leaflet/issues/453
  */
-import L from 'leaflet'
+import L, { map } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import icon from 'leaflet/dist/images/marker-icon.png'
 import iconShadow from 'leaflet/dist/images/marker-shadow.png'
@@ -36,6 +36,8 @@ export default function Map(){
   const [sensorSelected, setSensorSelected] = useState(null)
   const [latLong, setLatLong] = useState(null)
 
+  const [modal, setModal] = useState(null)
+
   const ClickLocation = () => {
     const map = useMapEvents({
       dblclick: (ev) => {
@@ -47,8 +49,15 @@ export default function Map(){
   }
 
   const showModal = () => {
-    let myModal = new bootstrap.Modal(document.getElementById('createUpdateModal'), {})
-    myModal.show()
+    modal.show()
+  }
+
+  const addSensorAndCloseModal = (sensor) => {
+    let sensorsArray = sensors
+    sensorsArray.push(sensor)
+    setSensors(sensorsArray)
+    if (latLong) setLatLong(null)
+    modal.hide()
   }
 
   const handleClose = () => {
@@ -72,6 +81,9 @@ export default function Map(){
         setSensors(data)
         setSensorsLoaded(true)     
       })
+
+    let myModal = new bootstrap.Modal(document.getElementById('createUpdateModal'), {})
+    setModal(myModal)
   }, [])
 
   const addMarkersForSensors = sensors.map(sensor => {
@@ -81,7 +93,9 @@ export default function Map(){
           setSensorSelected(sensor)
         },
         popupclose: (e) => {
-          setSensorSelected(null)
+          //PROBLEMA
+          if (!e.popup.isPopupOpen())
+            setSensorSelected(null)
         },
       }}>
         <Popup className="sensor-popup">
@@ -115,7 +129,7 @@ export default function Map(){
         <ClickLocation />
       </MapContainer>
       { sensorSelected && <DeleteModal sensor={sensorSelected} onDelete={handleDelete}/> }
-      <CreateUpdateModal latitudeLongitude={latLong} onClose={handleClose}/>
+      <CreateUpdateModal latitudeLongitude={latLong} onClose={handleClose} addSensorAndCloseModal={addSensorAndCloseModal}/>
       { latLong && showModal() }
     </>
   )
