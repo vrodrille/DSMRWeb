@@ -49,7 +49,9 @@ function CreateUpdateModal({ latitudeLongitude, onClose, addSensorAndCloseModal 
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">Creación de sensor</h5>
-            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={onClose}></button>
+            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => {
+              setErrors({ip_address: null, location: null})
+              onClose()}}></button>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="modal-body">
@@ -96,7 +98,9 @@ function CreateUpdateModal({ latitudeLongitude, onClose, addSensorAndCloseModal 
             </div>
             <div className="modal-footer">
               <button type="submit" className="btn btn-primary">Crear</button>
-              <button type="button" className="btn btn-sm btn-link text-secondary" data-bs-dismiss="modal" onClick={onClose}>Cancelar</button>
+              <button type="button" className="btn btn-sm btn-link text-secondary" data-bs-dismiss="modal" onClick={() => {
+              setErrors({ip_address: null, location: null})
+              onClose()}}>Cancelar</button>
             </div>
           </form>
         </div>
