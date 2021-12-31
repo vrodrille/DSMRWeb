@@ -13,13 +13,13 @@ module Api
       render json: sensor
     end
 
-    def create
+    def create     
       sensor = Sensor.new(sensor_params)
 
       if sensor.save 
         render json: sensor
       else
-        render json: { error: sensor.error.messages }, status: 422
+        render status: :unprocessable_entity, json: { error: sensor.errors }
       end
     end
 
@@ -29,7 +29,7 @@ module Api
       if sensor.update(sensor_params)
         render json: sensor
       else
-        render json: { error: sensor.error.messages }, status: 422
+        render status: :unprocessable_entity, json: { error: sensor.errors }
       end
     end
 
@@ -39,7 +39,7 @@ module Api
       if sensor.destroy 
         head :no_content
       else
-        render json: { error: sensor.error.messages }, status: 422
+        render status: :unprocessable_entity, json: { error: sensor.errors }
       end
     end
 

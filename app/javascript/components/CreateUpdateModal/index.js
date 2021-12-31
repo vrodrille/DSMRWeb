@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ReactDOM  from 'react-dom'
 import './CreateUpdateModal.css'
 import createSensor from '../../services/createSensor'
+import InputError from '../InputError'
 
 const clearInputFields = () => {
   let fields = document.getElementsByTagName('input')
@@ -15,6 +16,7 @@ const clearInputFields = () => {
 function CreateUpdateModal({ latitudeLongitude, onClose, addSensorAndCloseModal }){
 
   const [sensorInModal, setSensorInModal] = useState({latitude: null, longitude: null, location: null, ip_address: null, information: null})
+  const [errors, setErrors] = useState({ip_address: null, location: null})
 
   useEffect(() => {
     if (latitudeLongitude){
@@ -28,13 +30,16 @@ function CreateUpdateModal({ latitudeLongitude, onClose, addSensorAndCloseModal 
 
   const handleSubmit = (ev) => {
     ev.preventDefault()
+    
     createSensor(sensorInModal)
-      .then( (data) => {
-        addSensorAndCloseModal(data)
-        clearInputFields()
+      .then( (response) => {
+        addSensorAndCloseModal(response.data)
+        if (errors)
+          setErrors({ip_address: null, location: null})
+        clearInputFields() 
       })
-      .catch( (err) => {
-        console.log(err)
+      .catch( (error) => {
+        setErrors(error.response.data.error)
       })
   }
 
@@ -69,7 +74,8 @@ function CreateUpdateModal({ latitudeLongitude, onClose, addSensorAndCloseModal 
                   <label className="col-form-label" htmlFor="inputLocation">Localización:</label>
                 </div>
                 <div className="col-auto">
-                  <input className="form-control" id="inputLocation" name="location" onChange={handleChange}/>
+                  <input className={errors.location ? "form-control is-invalid" : "form-control"} id="inputLocation" name="location" onChange={handleChange}/>
+                  <InputError errorMessage={errors.location ? errors.location[0] : null}/>
                 </div>
               </div>
               <div className="row g-3 align-items-center">
@@ -77,8 +83,9 @@ function CreateUpdateModal({ latitudeLongitude, onClose, addSensorAndCloseModal 
                   <label className="col-form-label" htmlFor="inputIP">Dirección IP:</label>
                 </div>
                 <div className="col-auto">
-                  <input className="form-control" id="inputIP" name="ip_address" onChange={handleChange}/>
-                </div>
+                  <input className={errors.ip_address ? "form-control is-invalid" : "form-control"} id="inputIP" name="ip_address" onChange={handleChange}/>
+                  <InputError errorMessage={errors.ip_address ? errors.ip_address[0] : null}/>
+                </div> 
               </div>
             </div>
             <hr />
