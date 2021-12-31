@@ -16,7 +16,7 @@ const clearInputFields = () => {
 function CreateUpdateModal({ latitudeLongitude, onClose, addSensorAndCloseModal }){
 
   const [sensorInModal, setSensorInModal] = useState({latitude: null, longitude: null, location: null, ip_address: null, information: null})
-  const [errors, setErrors] = useState({ip_address: null, location: null})
+  const [errors, setErrors] = useState({ip_address: null, location: null, information: null})
 
   useEffect(() => {
     if (latitudeLongitude){
@@ -35,7 +35,7 @@ function CreateUpdateModal({ latitudeLongitude, onClose, addSensorAndCloseModal 
       .then( (response) => {
         addSensorAndCloseModal(response.data)
         if (errors)
-          setErrors({ip_address: null, location: null})
+          setErrors({ip_address: null, location: null, information: null})
         clearInputFields() 
       })
       .catch( (error) => {
@@ -50,7 +50,8 @@ function CreateUpdateModal({ latitudeLongitude, onClose, addSensorAndCloseModal 
           <div className="modal-header">
             <h5 className="modal-title">Creación de sensor</h5>
             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => {
-              setErrors({ip_address: null, location: null})
+              setErrors({ip_address: null, location: null, information: null})
+              clearInputFields()
               onClose()}}></button>
           </div>
           <form onSubmit={handleSubmit}>
@@ -71,14 +72,14 @@ function CreateUpdateModal({ latitudeLongitude, onClose, addSensorAndCloseModal 
                 <label className="col-3 col-form-label" htmlFor="inputLocation">Localización:</label>
                 <div className="col-auto">
                   <input className={errors.location ? "form-control is-invalid" : "form-control"} id="inputLocation" name="location" onChange={handleChange}/>
-                  <InputError errorMessage={errors.location ? errors.location[0] : null}/>
+                  <InputError errorMessage={errors.location ? errors.location[0] : null} tagClassName={"invalid-feedback"}/>
                 </div>
               </div>
               <div className="row">
                 <label className="col-3 col-form-label" htmlFor="inputIP">Dirección IP:</label>
                 <div className="col-auto">
-                  <input className={errors.ip_address ? "form-control is-invalid" : "form-control"} id="inputIP" name="ip_address" onChange={handleChange}/>
-                  <InputError errorMessage={errors.ip_address ? errors.ip_address[0] : null}/>
+                  <input className={errors.ip_address ? "form-control is-invalid" : "form-control"} id="inputIP" name="ip_address" onChange={handleChange}/>               
+                  <InputError errorMessage={errors.ip_address ? errors.ip_address[0] : null} tagClassName={"invalid-feedback"}/>
                 </div> 
               </div>
             </div>
@@ -86,12 +87,14 @@ function CreateUpdateModal({ latitudeLongitude, onClose, addSensorAndCloseModal 
             <h6 className="info-section-header"> Información </h6>
             <hr />
             <div className="input-group">
-              <textarea className="form-control info-text-area" name="information" onChange={handleChange}></textarea>
+              <textarea className={errors.information ? "form-control info-text-area is-invalid" : "form-control info-text-area"} name="information" onChange={handleChange}></textarea>
+              <InputError errorMessage={errors.information ? errors.information[0] : null} tagClassName={"ms-3 invalid-feedback"}/>
             </div>
-            <div className="modal-footer">
+            <div className="mt-3 modal-footer">
               <button type="submit" className="btn btn-primary">Crear</button>
               <button type="button" className="btn btn-sm btn-link text-secondary" data-bs-dismiss="modal" onClick={() => {
-              setErrors({ip_address: null, location: null})
+              setErrors({ip_address: null, location: null, information: null})
+              clearInputFields()
               onClose()}}>Cancelar</button>
             </div>
           </form>
