@@ -1,0 +1,12 @@
+es:
+  activerecord:
+    errors:
+      models:
+        sensor:
+          attributes:
+            location:
+              blank: 'No puede ser nulo'
+            ip_address:
+              blank: 'No puede ser nulo'
+            information:
+              too_long: "No puede superar los 200 caracteres"
