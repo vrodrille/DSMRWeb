@@ -30,6 +30,7 @@ function CreateUpdateModal({ latitudeLongitude, onClose, addSensorAndCloseModal 
 
   const closingManagement = () => {
     setErrors({ip_address: null, location: null, information: null})
+    setSensorInModal({latitude: null, longitude: null, location: null, ip_address: null, information: null})
     clearInputFields()
     onClose()
   }
@@ -42,7 +43,8 @@ function CreateUpdateModal({ latitudeLongitude, onClose, addSensorAndCloseModal 
         addSensorAndCloseModal(response.data)
         if (errors)
           setErrors({ip_address: null, location: null, information: null})
-        clearInputFields() 
+        clearInputFields()
+        setSensorInModal({latitude: null, longitude: null, location: null, ip_address: null, information: null}) 
       })
       .catch( (error) => {
         setErrors(error.response.data.error)
