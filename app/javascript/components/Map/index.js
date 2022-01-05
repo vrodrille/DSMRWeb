@@ -6,7 +6,7 @@ import getSensors from '../../services/getSensors'
 import DeleteModal from '../DeleteModal'
 import deleteSensor from '../../services/deleteSensor'
 
-import CreateUpdateModal from '../CreateUpdateModal'
+import SensorFormModal from '../SensorFormModal'
 
 /**
  * This imports and the below DefaultIcon assignation was needed so
@@ -81,8 +81,8 @@ export default function Map(){
         setSensors(data)
         setSensorsLoaded(true)     
       })
-    let myModal = new bootstrap.Modal(document.getElementById('createUpdateModal'), {})
-    setModal(myModal)
+    let sensorFormModal = new bootstrap.Modal(document.getElementById('sensor-form-modal'), {})
+    setModal(sensorFormModal)
   }, [])
 
   const addMarkersForSensors = sensors.map(sensor => {
@@ -126,7 +126,7 @@ export default function Map(){
         <ClickLocation />
       </MapContainer>
       { sensorSelected && <DeleteModal sensor={sensorSelected} onDelete={handleDelete}/> }
-      <CreateUpdateModal latitudeLongitude={latLong} onClose={handleClose} addSensorAndCloseModal={addSensorAndCloseModal}/>
+      <SensorFormModal latitudeLongitude={latLong} onClose={handleClose} addSensorAndCloseModal={addSensorAndCloseModal}/>
       { latLong && showModal() }
     </>
   )
