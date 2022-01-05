@@ -56,12 +56,16 @@ export default function Map(){
     let sensorsArray = sensors
     sensorsArray.push(sensor)
     setSensors(sensorsArray)
-    if (latLong) setLatLong(null)
+    if (latLong) {
+      setLatLong(null)
+    }
     modal.hide()
   }
 
   const handleClose = () => {
-    if (latLong) setLatLong(null)
+    if (latLong) {
+      setLatLong(null)
+    }
   }
 
   const handleDelete = ({sensor}) => {
