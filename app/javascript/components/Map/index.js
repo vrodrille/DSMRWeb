@@ -108,7 +108,7 @@ export default function Map(){
           <h2 className="h6 text-secondary">Información</h2>
           <p>{sensor.information}</p>
           <hr />
-          <button type="button" className="btn btn-sm btn-primary float-start">
+          <button type="button" className="btn btn-sm btn-primary float-start" onClick={showModal}>
             Editar
           </button>
           <button type="button" className="btn btn-sm btn-link text-danger float-end" data-bs-toggle="modal" data-bs-target="#deleteModal">
@@ -130,7 +130,7 @@ export default function Map(){
         <ClickLocation />
       </MapContainer>
       { sensorSelected && <DeleteModal sensor={sensorSelected} onDelete={handleDelete}/> }
-      <SensorFormModal latitudeLongitude={latLong} onClose={handleClose} addSensorAndCloseModal={addSensorAndCloseModal}/>
+      <SensorFormModal latitudeLongitude={latLong} sensorSelected={sensorSelected} onClose={handleClose} addSensorAndCloseModal={addSensorAndCloseModal}/>
       { latLong && showModal() }
     </>
   )
