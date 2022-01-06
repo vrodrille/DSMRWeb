@@ -37,31 +37,24 @@ function SensorFormModal({ latitudeLongitude, sensorSelected, onClose, addSensor
   }
 
   const handleSubmit = (ev) => {
-    ev.preventDefault()
-    
+    ev.preventDefault() 
     if (errors) {
       setErrors({ip_address: null, location: null, information: null})
     }
-
+    let request = null
     if (latitudeLongitude){
-      createSensor(sensorInModal)
-        .then( (response) => {
-          addSensorAndCloseModal(response.data)
-          initialAssignation()
-        })
-        .catch( (error) => {
-          setErrors(error.response.data.error)
-        })
+      request = createSensor(sensorInModal)
     } else {
-      updateSensor(sensorInModal)
-        .then( (response) => {
-          addSensorAndCloseModal(response.data)
-          initialAssignation()
-        })
-        .catch( (error) => {
-          setErrors(error.response.data.error)
-        })
+      request = updateSensor(sensorInModal)
     }
+    request
+      .then( (response) => {
+        addSensorAndCloseModal(response.data)
+        initialAssignation()
+      })
+      .catch( (error) => {
+        setErrors(error.response.data.error)
+      })
   }
 
   return(
