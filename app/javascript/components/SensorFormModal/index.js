@@ -3,32 +3,35 @@ import ReactDOM  from 'react-dom'
 import './SensorFormModal.css'
 import createSensor from '../../services/createSensor'
 import FormFieldErrorMessage from '../FormFieldErrorMessage'
-import { clearInputFields } from '../../utils/form'
 
 function SensorFormModal({ latitudeLongitude, sensorSelected, onClose, addSensorAndCloseModal }){
 
-  const [sensorInModal, setSensorInModal] = useState({id: null, latitude: null, longitude: null, location: '', ip_address: '', information: ''})
+  const [sensorInModal, setSensorInModal] = useState({id: null, latitude: '', longitude: '', location: '', ip_address: '', information: ''})
   const [errors, setErrors] = useState({ip_address: null, location: null, information: null})
 
   useEffect(() => {
+    initialAssignation()
+  }, [latitudeLongitude, sensorSelected])
+
+  const initialAssignation = () => {
     if (latitudeLongitude){
-      setSensorInModal(Object.assign({}, sensorInModal, {id: null, latitude: latitudeLongitude.lat, longitude: latitudeLongitude.lng, location: null, ip_address: null, information: null}))
+      setSensorInModal(Object.assign({}, sensorInModal, {latitude: latitudeLongitude.lat, longitude: latitudeLongitude.lng, location: '', ip_address: '', information: ''}))
     } else if (sensorSelected){
       let informationFieldInitialValue = ''
       if (sensorSelected.information){
         informationFieldInitialValue = sensorSelected.information 
       }
-      setSensorInModal(Object.assign({}, sensorInModal, {id: sensorSelected.id, latitude: sensorSelected.latitude, longitude: sensorSelected.longitude, location: sensorSelected.location, ip_address: sensorSelected.ip_address, information: informationFieldInitialValue}))
+      setSensorInModal({id: sensorSelected.id, latitude: sensorSelected.latitude, longitude: sensorSelected.longitude, location: sensorSelected.location, ip_address: sensorSelected.ip_address, information: informationFieldInitialValue})
     }
-  }, [latitudeLongitude, sensorSelected])
+  }
 
   const handleChange = (ev) => {
     setSensorInModal(Object.assign({}, sensorInModal, {[ev.target.name]: ev.target.value}))
   }
 
   const closingManagement = () => {
+    initialAssignation()
     setErrors({ip_address: null, location: null, information: null})
-    clearInputFields('#sensor-form')
     onClose()
   }
 
@@ -42,7 +45,7 @@ function SensorFormModal({ latitudeLongitude, sensorSelected, onClose, addSensor
     createSensor(sensorInModal)
       .then( (response) => {
         addSensorAndCloseModal(response.data)
-        clearInputFields('#sensor-form')
+        initialAssignation()
       })
       .catch( (error) => {
         setErrors(error.response.data.error)
@@ -62,13 +65,13 @@ function SensorFormModal({ latitudeLongitude, sensorSelected, onClose, addSensor
               <div className="row mb-3">
                 <label className="col-3 col-form-label">Latitud:</label>
                 <div className="col-auto">
-                  <input className="form-control" placeholder={latitudeLongitude ? latitudeLongitude.lat : sensorSelected ? sensorSelected.latitude : ''} disabled/>
+                  <input className="form-control" placeholder={sensorInModal.latitude} disabled/>
                 </div>
               </div>
               <div className="row mb-3">
                 <label className="col-3 col-form-label">Longitud:</label>
                 <div className="col-auto">
-                  <input className="form-control" placeholder={latitudeLongitude ? latitudeLongitude.lng: sensorSelected ? sensorSelected.longitude : ''} disabled/>
+                  <input className="form-control" placeholder={sensorInModal.longitude} disabled/>
                 </div>
               </div>
               <div className="row mb-3">
