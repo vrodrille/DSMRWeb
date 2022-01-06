@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ReactDOM  from 'react-dom'
 import './SensorFormModal.css'
 import createSensor from '../../services/createSensor'
+import updateSensor from '../../services/updateSensor'
 import FormFieldErrorMessage from '../FormFieldErrorMessage'
 
 function SensorFormModal({ latitudeLongitude, sensorSelected, onClose, addSensorAndCloseModal }){
@@ -42,14 +43,25 @@ function SensorFormModal({ latitudeLongitude, sensorSelected, onClose, addSensor
       setErrors({ip_address: null, location: null, information: null})
     }
 
-    createSensor(sensorInModal)
-      .then( (response) => {
-        addSensorAndCloseModal(response.data)
-        initialAssignation()
-      })
-      .catch( (error) => {
-        setErrors(error.response.data.error)
-      })
+    if (latitudeLongitude){
+      createSensor(sensorInModal)
+        .then( (response) => {
+          addSensorAndCloseModal(response.data)
+          initialAssignation()
+        })
+        .catch( (error) => {
+          setErrors(error.response.data.error)
+        })
+    } else {
+      updateSensor(sensorInModal)
+        .then( (response) => {
+          addSensorAndCloseModal(response.data)
+          initialAssignation()
+        })
+        .catch( (error) => {
+          setErrors(error.response.data.error)
+        })
+    }
   }
 
   return(
@@ -97,7 +109,7 @@ function SensorFormModal({ latitudeLongitude, sensorSelected, onClose, addSensor
               <FormFieldErrorMessage errorMessage={errors.information ? errors.information[0] : null} tagClassName={"ms-3 invalid-feedback"}/>
             </div>
             <div className="mt-3 modal-footer">
-              <button type="submit" className="btn btn-primary">Crear</button>
+              <button type="submit" className="btn btn-primary">{latitudeLongitude ? "Crear" : "Guardar"}</button>
               <button type="button" className="btn btn-sm btn-link text-secondary" data-bs-dismiss="modal" onClick={closingManagement}>Cancelar</button>
             </div>
           </form>

@@ -53,11 +53,21 @@ export default function Map(){
   }
 
   const addSensorAndCloseModal = (sensor) => {
-    let sensorsArray = sensors
+    let sensorsArray = null
+    if (sensorSelected){
+      sensorsArray = sensors.filter( element => {
+        return element.id != sensor.id
+      })
+    } else {
+      sensorsArray = sensors
+    }
     sensorsArray.push(sensor)
     setSensors(sensorsArray)
     if (latLong) {
       setLatLong(null)
+    }
+    if (sensorSelected){
+      setSensorSelected(sensor)
     }
     modal.hide()
   }
