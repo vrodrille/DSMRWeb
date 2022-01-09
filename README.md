@@ -14,7 +14,9 @@ This Application uses the **Ruby on Rails** framework for the backend, and the J
 
 The [Axios](https://github.com/axios/axios) library for JavaScript is used to retrieve data from the API on the React components.
 
-Also Bootstrap is being used in the views and modals of this Application.
+[Bootstrap v5.0](https://getbootstrap.com/docs/5.0/getting-started/introduction/) is being used in the views and modals of this Application.
+
+For the map part of this application the library [React Leaflet](https://react-leaflet.js.org/) was used, this library provides React components for [Leaflet](https://leafletjs.com/) maps, Leaflet is itself a Javascript library for interactive maps. The use of React Leaflet accelerated the developing process as it already integrates Leaflet's maps on React.
 
 
 
