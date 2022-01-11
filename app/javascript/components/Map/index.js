@@ -130,7 +130,7 @@ export default function Map(){
   })
 
   return(
-    <>
+    <div className="content">
       <MapContainer center={[JAEN_LOCALIZATION.latitude, JAEN_LOCALIZATION.longitude]} zoom={ZOOM_LEVEL} doubleClickZoom={false}>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -142,6 +142,6 @@ export default function Map(){
       { sensorSelected && <DeleteModal sensor={sensorSelected} onDelete={handleDelete}/> }
       <SensorFormModal latitudeLongitude={latLong} sensorSelected={sensorSelected} onClose={handleClose} addSensorAndCloseModal={addSensorAndCloseModal}/>
       { latLong && showModal() }
-    </>
+    </div>
   )
 }

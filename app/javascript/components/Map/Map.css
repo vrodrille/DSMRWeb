@@ -1,5 +1,9 @@
+.content{
+  flex-basis: 80%;
+}
+
 .leaflet-container {
-  width: 50vw;
+  width: 100%;
   height: 100vh;
 }
 

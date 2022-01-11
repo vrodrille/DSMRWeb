@@ -1,0 +1,15 @@
+.sidebar{
+  background-color: #efefef;
+  flex-basis: 20%;
+  min-width: 200px;
+  padding: 2rem 1.5rem;
+}
+
+.sidebar-button{
+  display: block;
+  width: 100%;
+}
+
+.sidebar-button + .sidebar-button {
+  margin-top: 1rem;
+}
