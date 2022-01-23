@@ -1,0 +1,4 @@
+Tamaño de la población
+Probabilidad de mutación
+Probabilidad de cruce
+Máximo número de evaluaciones
