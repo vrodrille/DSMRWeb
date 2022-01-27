@@ -4,6 +4,8 @@ import getAlgorithms from '../../services/getAlgorithms'
 import getAlgorithmParams from '../../services/getAlgorithmParams'
 import getGenerators from '../../services/getGenerators'
 import getGeneratorParams from '../../services/getGeneratorParams'
+import './LaunchExperimentModal.css'
+import { clearFormFields, inputDivClearer } from '../../utils/experiment'
 
 function LaunchExperimentModal(){
 
@@ -30,16 +32,23 @@ function LaunchExperimentModal(){
       getAlgorithmParams(selectValue)
         .then( (response) => {
           response.data.map((field) => {
+            let div = document.createElement("div")
+            div.className = "row mt-3"
             let label = document.createElement("label")
             label.setAttribute("for", field)
+            label.className = "col-8 col-form-label"
             label.textContent = field + ":"
-            inputDiv.appendChild(label)
+            div.appendChild(label)
+            let subDiv = document.createElement("div")
+            subDiv.className = "col-4"
             let input = document.createElement("input")
             input.setAttribute("id", field)
             input.setAttribute("name", field)
             input.required = true
             input.className = "form-control"
-            inputDiv.appendChild(input)
+            subDiv.appendChild(input)
+            div.appendChild(subDiv)
+            inputDiv.appendChild(div)
           })
         })
     } else {
@@ -52,10 +61,15 @@ function LaunchExperimentModal(){
       getGeneratorParams(selectValue)
         .then( (response) => {
           response.data.map( (field) => {
+            let div = document.createElement("div")
+            div.className = "row mt-2"
             let label = document.createElement("label")
             label.setAttribute("for", field.command)
             label.textContent = field.command + ":"
-            inputDiv.appendChild(label)
+            label.className = "col-2 col-form-label"
+            div.appendChild(label)
+            let subDiv = document.createElement("div")
+            subDiv.className = "col-3"
             let input = document.createElement("input")
             input.setAttribute("id", field.command)
             input.setAttribute("name", field.command)
@@ -65,28 +79,20 @@ function LaunchExperimentModal(){
             input.required = true
             input.defaultValue = field.default_value
             input.className = "form-control"
-            inputDiv.appendChild(input)
+            subDiv.appendChild(input)
+            div.appendChild(subDiv)
+            inputDiv.appendChild(div)
             new bootstrap.Tooltip(input)
           })
         })
     }
   }
 
-  const inputDivClearer = (divIdentifier) => {
-    let element = document.getElementById(divIdentifier)
-    element.innerHTML = ""
-  }
-
   const closingOperation = () => {
-    let algorithmSelect = document.getElementById("algorithm-select")
-    algorithmSelect.value = ""
     inputDivClearer("algorithm-inputs")
-    let conceptSelect = document.getElementById("concept-select")
-    conceptSelect.value = ""
     inputDivClearer("concept-inputs")
-    let conceptDriftSelect = document.getElementById("concept-drift-select")
-    conceptDriftSelect.value = ""
     inputDivClearer("concept-drift-inputs")
+    clearFormFields("#experiment-form")
   }
 
   return(
@@ -102,7 +108,7 @@ function LaunchExperimentModal(){
               <div className="algorithm-section">
                 <h6 className="algorithm-section-header"> Algoritmo </h6>
                 <hr />
-                <select id="algorithm-select" className="form-select" name="algorithm-select" defaultValue="" onChange={() => {generateInputsOnSelectValue("algorithm-inputs", true)}} required>
+                <select id="algorithm-select" className="form-select algorithm-select" name="algorithm-select" defaultValue="" onChange={() => {generateInputsOnSelectValue("algorithm-inputs", true)}} required>
                   <option disabled value="">Algoritmo</option>
                   { algorithms.map( (algorithm) => {
                       return <option key={algorithm} value={algorithm}>{algorithm}</option>
@@ -150,7 +156,7 @@ function LaunchExperimentModal(){
                 <div className="concept-section">
                   <h6 className="concept-section-header"> Concepto </h6>
                   <hr />
-                  <select id="concept-select" className="form-select" name="concept-select" defaultValue="" onChange={() => {generateInputsOnSelectValue("concept-inputs", false)}} required>
+                  <select id="concept-select" className="form-select generator-select" name="concept-select" defaultValue="" onChange={() => {generateInputsOnSelectValue("concept-inputs", false)}} required>
                     <option disabled value="">Generador</option>
                     { generators.map( (generator) => {
                         return <option key={generator} value={generator}>{generator}</option>
@@ -164,7 +170,7 @@ function LaunchExperimentModal(){
                 <div className="concept-drift-section">
                   <h6 className="concept-drift-section-header"> Siguiente concepto </h6>
                   <hr />
-                  <select id="concept-drift-select" className="form-select" name="concept-drift-select" defaultValue="" onChange={() => {generateInputsOnSelectValue("concept-drift-inputs", false)}} required>
+                  <select id="concept-drift-select" className="form-select generator-select" name="concept-drift-select" defaultValue="" onChange={() => {generateInputsOnSelectValue("concept-drift-inputs", false)}} required>
                     <option disabled value="">Generador</option>
                     { generators.map( (generator) => {
                         return <option key={generator} value={generator}>{generator}</option>
