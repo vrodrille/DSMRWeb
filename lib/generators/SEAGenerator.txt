@@ -1,0 +1,4 @@
+-f;Función de clasificación (valores del 1 al 4);1
+-i;Semilla para la generación aleatoria de instancias;1
+-b;Balancear el número de instancias de cada clase (booleano);0
+-n;Porcentaje de ruido en los datos (en %);10

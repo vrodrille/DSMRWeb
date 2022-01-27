@@ -1,0 +1,5 @@
+-r;Semilla para la generación aleatoria del modelo;1
+-i;Semilla para la generación aleatoria de instancias;1
+-c;Número de clases a generar;2
+-a;Número de atributos a generar;10
+-n;Número de centroides en el modelo;50

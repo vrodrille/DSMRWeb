@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import ReactDOM  from 'react-dom'
+import ReactDOM from 'react-dom'
 import './SensorFormModal.css'
 import createSensor from '../../services/createSensor'
 import updateSensor from '../../services/updateSensor'

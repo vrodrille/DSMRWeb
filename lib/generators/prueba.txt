@@ -1,2 +1,0 @@
--f;Función de distribución de probabilidad;0
--r;Generador aleatorio;1000
