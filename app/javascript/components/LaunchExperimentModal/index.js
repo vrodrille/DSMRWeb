@@ -4,8 +4,7 @@ import getAlgorithms from '../../services/getAlgorithms'
 import getAlgorithmParams from '../../services/getAlgorithmParams'
 import getGenerators from '../../services/getGenerators'
 import getGeneratorParams from '../../services/getGeneratorParams'
-import './LaunchExperimentModal.css'
-import { clearFormFields, inputDivClearer } from '../../utils/experiment'
+import { clearFormFields, algorithmFieldsClearer } from '../../utils/experiment'
 
 function LaunchExperimentModal(){
 
@@ -26,29 +25,29 @@ function LaunchExperimentModal(){
 
   const generateInputsOnSelectValue = (divSelector, isAlgorithmSelect) => {
     let inputDiv = document.getElementById(divSelector)
-    inputDivClearer(divSelector)
+    algorithmFieldsClearer(divSelector)
     if (isAlgorithmSelect){
       let selectValue = document.getElementById("algorithm-select").value
       getAlgorithmParams(selectValue)
         .then( (response) => {
           response.data.map((field) => {
-            let div = document.createElement("div")
-            div.className = "row mt-3"
+            let row = document.createElement("div")
+            row.className = "row mt-3"
             let label = document.createElement("label")
             label.setAttribute("for", field)
-            label.className = "col-8 col-form-label"
+            label.className = "text-secondary col-8 col-form-label"
             label.textContent = field + ":"
-            div.appendChild(label)
-            let subDiv = document.createElement("div")
-            subDiv.className = "col-4"
+            row.appendChild(label)
+            let fieldContainer = document.createElement("div")
+            fieldContainer.className = "col-4"
             let input = document.createElement("input")
             input.setAttribute("id", field)
             input.setAttribute("name", field)
             input.required = true
             input.className = "form-control"
-            subDiv.appendChild(input)
-            div.appendChild(subDiv)
-            inputDiv.appendChild(div)
+            fieldContainer.appendChild(input)
+            row.appendChild(fieldContainer)
+            inputDiv.appendChild(row)
           })
         })
     } else {
@@ -61,15 +60,15 @@ function LaunchExperimentModal(){
       getGeneratorParams(selectValue)
         .then( (response) => {
           response.data.map( (field) => {
-            let div = document.createElement("div")
-            div.className = "row mt-2"
+            let row = document.createElement("div")
+            row.className = "row mb-3"
             let label = document.createElement("label")
             label.setAttribute("for", field.command)
             label.textContent = field.command + ":"
-            label.className = "col-2 col-form-label"
-            div.appendChild(label)
-            let subDiv = document.createElement("div")
-            subDiv.className = "col-3"
+            label.className = "text-secondary col-2 col-form-label text-end"
+            row.appendChild(label)
+            let fieldContainer = document.createElement("div")
+            fieldContainer.className = "col-4"
             let input = document.createElement("input")
             input.setAttribute("id", field.command)
             input.setAttribute("name", field.command)
@@ -79,9 +78,9 @@ function LaunchExperimentModal(){
             input.required = true
             input.defaultValue = field.default_value
             input.className = "form-control"
-            subDiv.appendChild(input)
-            div.appendChild(subDiv)
-            inputDiv.appendChild(div)
+            fieldContainer.appendChild(input)
+            row.appendChild(fieldContainer)
+            inputDiv.appendChild(row)
             new bootstrap.Tooltip(input)
           })
         })
@@ -89,94 +88,102 @@ function LaunchExperimentModal(){
   }
 
   const closingOperation = () => {
-    inputDivClearer("algorithm-inputs")
-    inputDivClearer("concept-inputs")
-    inputDivClearer("concept-drift-inputs")
+    algorithmFieldsClearer("algorithm-inputs")
+    algorithmFieldsClearer("concept-inputs")
+    algorithmFieldsClearer("concept-drift-inputs")
     clearFormFields("#experiment-form")
   }
 
   return(
     <div className="modal fade" id="launch-experiment-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1">
-      <div className="modal-dialog">
+      <div className="modal-dialog modal-xl">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">Ejecutar experimento</h5>
             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={closingOperation}></button>
           </div>
           <form id="experiment-form">
-            <div className="modal-body">
-              <div className="algorithm-section">
-                <h6 className="algorithm-section-header"> Algoritmo </h6>
-                <hr />
-                <select id="algorithm-select" className="form-select algorithm-select" name="algorithm-select" defaultValue="" onChange={() => {generateInputsOnSelectValue("algorithm-inputs", true)}} required>
-                  <option disabled value="">Algoritmo</option>
-                  { algorithms.map( (algorithm) => {
-                      return <option key={algorithm} value={algorithm}>{algorithm}</option>
-                    }) 
-                  }
-                </select>
+            <div className="modal-body row">
+              <div className="algorithm-section col-6">
+                <h6 className="mb-2 algorithm-section-header"> Algoritmo </h6>
+                
+                <div className="row">
+                  <div className="col-6">
+                    <select id="algorithm-select" className="form-select" name="algorithm-select" defaultValue="" onChange={() => {generateInputsOnSelectValue("algorithm-inputs", true)}} required>
+                      <option disabled value="">Algoritmo</option>
+                      { algorithms.map( (algorithm) => {
+                          return <option key={algorithm} value={algorithm}>{algorithm}</option>
+                        }) 
+                      }
+                    </select>
+                  </div>
+                </div>
                 <div id="algorithm-inputs">
                 </div>
               </div>
-              <hr />
-              <div className="experiment-section">
-                <h6 className="experiment-section-header"> Experimento </h6>
-                <hr />
+              
+              <div className="experiment-section  col-6">
+                <h6 className="mb-2 experiment-section-header"> Experimento </h6>
                 <div className="row mb-3">
-                  <label className="col-7 col-form-label" htmlFor="total-instances">Instancias totales:</label>
+                  <label className="text-secondary col-8 col-form-label" htmlFor="total-instances">Instancias totales:</label>
                   <div className="col-4">
                     <input className="form-control" id="total-instances" name="total-instances" required/>
                   </div>
                 </div>
                 <div className="row mb-3">
-                  <label className="col-7 col-form-label" htmlFor="information-frequency">Frecuencia de información:</label>
+                  <label className="text-secondary col-8 col-form-label" htmlFor="information-frequency">Frecuencia de información:</label>
                   <div className="col-4">
                     <input className="form-control" id="information-frequency" name="information-frequency" required/>
                   </div>
                 </div>
                 <div className="row mb-3">
-                  <label className="col-7 col-form-label" htmlFor="drift-location">Localización del cambio:</label>
+                  <label className="text-secondary col-8 col-form-label" htmlFor="drift-location">Localización del cambio:</label>
                   <div className="col-4">
                     <input className="form-control" id="drift-location" name="drift-location" required/>
                   </div>
                 </div>
                 <div className="row mb-3">
-                  <label className="col-7 col-form-label" htmlFor="drift-window-instances">Ancho de la ventana de cambio:</label>
+                  <label className="text-secondary col-8 col-form-label" htmlFor="drift-window-instances">Ancho de la ventana de cambio:</label>
                   <div className="col-4">
                     <input className="form-control" id="drift-window-instances" name="drift-window-instances" required/>
                   </div>
                 </div>
                 <div className="row mb-3">
-                  <label className="col-7 col-form-label" htmlFor="experiment-duration">Tiempo (s):</label>
+                  <label className="text-secondary col-8 col-form-label" htmlFor="experiment-duration">Tiempo (s):</label>
                   <div className="col-4">
                     <input className="form-control" id="experiment-duration" name="experiment-duration" required/>
                   </div>
                 </div>
-                <hr />
                 <div className="concept-section">
-                  <h6 className="concept-section-header"> Concepto </h6>
-                  <hr />
-                  <select id="concept-select" className="form-select generator-select" name="concept-select" defaultValue="" onChange={() => {generateInputsOnSelectValue("concept-inputs", false)}} required>
-                    <option disabled value="">Generador</option>
-                    { generators.map( (generator) => {
-                        return <option key={generator} value={generator}>{generator}</option>
-                      }) 
-                    }
-                  </select>
+                  <h6 className="mb-2 concept-section-header"> Concepto </h6>
+                  
+                  <div className="row">
+                    <div className="col-6">
+                      <select id="concept-select" className="form-select mb-3" name="concept-select" defaultValue="" onChange={() => {generateInputsOnSelectValue("concept-inputs", false)}} required>
+                        <option disabled value="">Generador</option>
+                        { generators.map( (generator) => {
+                            return <option key={generator} value={generator}>{generator}</option>
+                          }) 
+                        }
+                      </select>
+                    </div>
+                  </div>
                   <div id="concept-inputs">
                   </div>
                 </div>
-                <hr />
                 <div className="concept-drift-section">
-                  <h6 className="concept-drift-section-header"> Siguiente concepto </h6>
-                  <hr />
-                  <select id="concept-drift-select" className="form-select generator-select" name="concept-drift-select" defaultValue="" onChange={() => {generateInputsOnSelectValue("concept-drift-inputs", false)}} required>
-                    <option disabled value="">Generador</option>
-                    { generators.map( (generator) => {
-                        return <option key={generator} value={generator}>{generator}</option>
-                      }) 
-                    }
-                  </select>
+                  <h6 className="mb-2 concept-drift-section-header"> Siguiente concepto </h6>
+                  <div className="row">
+                    <div className="col-6">
+                      <select id="concept-drift-select" className="form-select mb-3" name="concept-drift-select" defaultValue="" onChange={() => {generateInputsOnSelectValue("concept-drift-inputs", false)}} required>
+                        <option disabled value="">Generador</option>
+                        { generators.map( (generator) => {
+                            return <option key={generator} value={generator}>{generator}</option>
+                          }) 
+                        }
+                      </select>
+                    </div>
+                  </div>
                   <div id="concept-drift-inputs">
                   </div>
                 </div>

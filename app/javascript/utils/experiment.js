@@ -14,7 +14,7 @@ export const clearFormFields = (formSelector) => {
   }
 }
 
-export const inputDivClearer = (divIdentifier) => {
+export const algorithmFieldsClearer = (divIdentifier) => {
   let element = document.getElementById(divIdentifier)
   element.innerHTML = ""
 }
