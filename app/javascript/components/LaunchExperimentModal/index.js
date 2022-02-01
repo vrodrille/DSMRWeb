@@ -4,7 +4,7 @@ import getAlgorithms from '../../services/getAlgorithms'
 import getAlgorithmParams from '../../services/getAlgorithmParams'
 import getGenerators from '../../services/getGenerators'
 import getGeneratorParams from '../../services/getGeneratorParams'
-import { clearFormFields, algorithmFieldsClearer } from '../../utils/experiment'
+import { TOTAL_INSTANCES, INFORMATION_FREQUENCY, DRIFT_LOCATION, DRIFT_WINDOW_INSTANCES, EXPERIMENT_DURATION, clearFormFields, algorithmFieldsClearer, addFormDefaultValues } from '../../utils/experiment'
 
 function LaunchExperimentModal(){
 
@@ -34,17 +34,18 @@ function LaunchExperimentModal(){
             let row = document.createElement("div")
             row.className = "row mt-3"
             let label = document.createElement("label")
-            label.setAttribute("for", field)
+            label.setAttribute("for", field.name)
             label.className = "text-secondary col-8 col-form-label"
-            label.textContent = field + ":"
+            label.textContent = field.label + ":"
             row.appendChild(label)
             let fieldContainer = document.createElement("div")
             fieldContainer.className = "col-4"
             let input = document.createElement("input")
-            input.setAttribute("id", field)
-            input.setAttribute("name", field)
+            input.setAttribute("id", field.name)
+            input.setAttribute("name", `[algorithm][${field.name}]`)
             input.required = true
             input.className = "form-control"
+            input.defaultValue = field.default_value
             fieldContainer.appendChild(input)
             row.appendChild(fieldContainer)
             inputDiv.appendChild(row)
@@ -52,10 +53,13 @@ function LaunchExperimentModal(){
         })
     } else {
       let selectValue = null
+      let generatorInputName = null
       if (divSelector == "concept-inputs"){
         selectValue = document.getElementById("concept-select").value
+        generatorInputName = "generator_1"
       } else {
         selectValue = document.getElementById("concept-drift-select").value
+        generatorInputName = "generator_2"
       }
       getGeneratorParams(selectValue)
         .then( (response) => {
@@ -71,7 +75,7 @@ function LaunchExperimentModal(){
             fieldContainer.className = "col-4"
             let input = document.createElement("input")
             input.setAttribute("id", field.command)
-            input.setAttribute("name", field.command)
+            input.setAttribute("name", `[${generatorInputName}][${field.command}]`)
             input.setAttribute("data-bs-toggle", "tooltip")
             input.setAttribute("data-bs-placement", "right")
             input.setAttribute("title", field.description)
@@ -92,6 +96,7 @@ function LaunchExperimentModal(){
     algorithmFieldsClearer("concept-inputs")
     algorithmFieldsClearer("concept-drift-inputs")
     clearFormFields("#experiment-form")
+    addFormDefaultValues(["total-instances","information-frequency","drift-location","drift-window-instances","experiment-duration"],[TOTAL_INSTANCES, INFORMATION_FREQUENCY, DRIFT_LOCATION, DRIFT_WINDOW_INSTANCES, EXPERIMENT_DURATION])
   }
 
   return(
@@ -102,14 +107,13 @@ function LaunchExperimentModal(){
             <h5 className="modal-title" id="exampleModalLabel">Ejecutar experimento</h5>
             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={closingOperation}></button>
           </div>
-          <form id="experiment-form">
+          <form id="experiment-form" action="api/experiments" method="post">
             <div className="modal-body row">
               <div className="algorithm-section col-6">
                 <h6 className="mb-2 algorithm-section-header"> Algoritmo </h6>
-                
                 <div className="row">
                   <div className="col-6">
-                    <select id="algorithm-select" className="form-select" name="algorithm-select" defaultValue="" onChange={() => {generateInputsOnSelectValue("algorithm-inputs", true)}} required>
+                    <select id="algorithm-select" className="form-select" name="algorithm_select" defaultValue="" onChange={() => {generateInputsOnSelectValue("algorithm-inputs", true)}} required>
                       <option disabled value="">Algoritmo</option>
                       { algorithms.map( (algorithm) => {
                           return <option key={algorithm} value={algorithm}>{algorithm}</option>
@@ -121,45 +125,43 @@ function LaunchExperimentModal(){
                 <div id="algorithm-inputs">
                 </div>
               </div>
-              
               <div className="experiment-section  col-6">
                 <h6 className="mb-2 experiment-section-header"> Experimento </h6>
                 <div className="row mb-3">
                   <label className="text-secondary col-8 col-form-label" htmlFor="total-instances">Instancias totales:</label>
                   <div className="col-4">
-                    <input className="form-control" id="total-instances" name="total-instances" required/>
+                    <input className="form-control" id="total-instances" name="[experiment][total_instances]" defaultValue={TOTAL_INSTANCES} required/>
                   </div>
                 </div>
                 <div className="row mb-3">
                   <label className="text-secondary col-8 col-form-label" htmlFor="information-frequency">Frecuencia de información:</label>
                   <div className="col-4">
-                    <input className="form-control" id="information-frequency" name="information-frequency" required/>
+                    <input className="form-control" id="information-frequency" name="[experiment][information_frequency]" defaultValue={INFORMATION_FREQUENCY} required/>
                   </div>
                 </div>
                 <div className="row mb-3">
                   <label className="text-secondary col-8 col-form-label" htmlFor="drift-location">Localización del cambio:</label>
                   <div className="col-4">
-                    <input className="form-control" id="drift-location" name="drift-location" required/>
+                    <input className="form-control" id="drift-location" name="[experiment][drift_location]" defaultValue={DRIFT_LOCATION} required/>
                   </div>
                 </div>
                 <div className="row mb-3">
                   <label className="text-secondary col-8 col-form-label" htmlFor="drift-window-instances">Ancho de la ventana de cambio:</label>
                   <div className="col-4">
-                    <input className="form-control" id="drift-window-instances" name="drift-window-instances" required/>
+                    <input className="form-control" id="drift-window-instances" name="[experiment][drift_window-instances]" defaultValue={DRIFT_WINDOW_INSTANCES} required/>
                   </div>
                 </div>
                 <div className="row mb-3">
                   <label className="text-secondary col-8 col-form-label" htmlFor="experiment-duration">Tiempo (s):</label>
                   <div className="col-4">
-                    <input className="form-control" id="experiment-duration" name="experiment-duration" required/>
+                    <input className="form-control" id="experiment-duration" name="[experiment][experiment_duration]" defaultValue={EXPERIMENT_DURATION} required/>
                   </div>
                 </div>
                 <div className="concept-section">
                   <h6 className="mb-2 concept-section-header"> Concepto </h6>
-                  
                   <div className="row">
                     <div className="col-6">
-                      <select id="concept-select" className="form-select mb-3" name="concept-select" defaultValue="" onChange={() => {generateInputsOnSelectValue("concept-inputs", false)}} required>
+                      <select id="concept-select" className="form-select mb-3" name="concept_select" defaultValue="" onChange={() => {generateInputsOnSelectValue("concept-inputs", false)}} required>
                         <option disabled value="">Generador</option>
                         { generators.map( (generator) => {
                             return <option key={generator} value={generator}>{generator}</option>
@@ -175,7 +177,7 @@ function LaunchExperimentModal(){
                   <h6 className="mb-2 concept-drift-section-header"> Siguiente concepto </h6>
                   <div className="row">
                     <div className="col-6">
-                      <select id="concept-drift-select" className="form-select mb-3" name="concept-drift-select" defaultValue="" onChange={() => {generateInputsOnSelectValue("concept-drift-inputs", false)}} required>
+                      <select id="concept-drift-select" className="form-select mb-3" name="concept_drift_select" defaultValue="" onChange={() => {generateInputsOnSelectValue("concept-drift-inputs", false)}} required>
                         <option disabled value="">Generador</option>
                         { generators.map( (generator) => {
                             return <option key={generator} value={generator}>{generator}</option>

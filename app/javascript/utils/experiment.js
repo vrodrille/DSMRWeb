@@ -1,3 +1,13 @@
+export const TOTAL_INSTANCES = 500000
+
+export const INFORMATION_FREQUENCY = 10000
+
+export const DRIFT_LOCATION = 100000
+
+export const DRIFT_WINDOW_INSTANCES = 1
+
+export const EXPERIMENT_DURATION = 60
+
 export const clearFormFields = (formSelector) => {
   let form = document.querySelector(formSelector)
   let fields = form.getElementsByTagName('input')
@@ -17,4 +27,11 @@ export const clearFormFields = (formSelector) => {
 export const algorithmFieldsClearer = (divIdentifier) => {
   let element = document.getElementById(divIdentifier)
   element.innerHTML = ""
+}
+
+export const addFormDefaultValues = (formFields, defaultValues) => {
+  for (let i = 0; i < formFields.length; i++){
+    let field = document.getElementById(formFields[i])
+    field.value = defaultValues[i]
+  }
 }
