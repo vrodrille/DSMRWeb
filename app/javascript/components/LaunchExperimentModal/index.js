@@ -76,13 +76,21 @@ function LaunchExperimentModal(){
             fieldContainer.className = "col-4"
             let input = document.createElement("input")
             input.setAttribute("id", field.command)
+            if (field.type == "boolean"){
+              input.setAttribute("type","checkbox")
+              input.className = "form-check-input"
+              if (field.default_value == "1"){
+                input.checked = true
+              }
+            } else {
+              input.defaultValue = field.default_value
+              input.className = "form-control"
+              input.required = true
+            }
             input.setAttribute("name", `[${generatorInputName}][${field.command}]`)
             input.setAttribute("data-bs-toggle", "tooltip")
             input.setAttribute("data-bs-placement", "right")
             input.setAttribute("title", field.description)
-            input.required = true
-            input.defaultValue = field.default_value
-            input.className = "form-control"
             fieldContainer.appendChild(input)
             row.appendChild(fieldContainer)
             inputDiv.appendChild(row)
@@ -122,12 +130,22 @@ function LaunchExperimentModal(){
     let generator1 = "generators." + document.getElementById("concept-select").value 
     let generator1Inputs = document.querySelectorAll('[name*="[generator_1]"]')
     generator1Inputs.forEach( (inputField) =>  {
-      generator1 = generator1 + " " + inputField.id.toString() + " " + inputField.value
+      if (inputField.type == "checkbox"){
+        if (inputField.checked) {
+          generator1 = generator1 + " " + inputField.id.toString()
+        }
+      } else {
+        generator1 = generator1 + " " + inputField.id.toString() + " " + inputField.value
+      }
     })
     let generator2 = "generators." + document.getElementById("concept-drift-select").value 
     let generator2Inputs = document.querySelectorAll('[name*="[generator_2]"]')
     generator2Inputs.forEach( (inputField) =>  {
-      generator2 = generator2 + " " + inputField.id.toString() + " " + inputField.value
+      if (inputField.type == "checkbox" && inputField.checked){
+        generator2 = generator2 + " " + inputField.id.toString()
+      } else {
+        generator2 = generator2 + " " + inputField.id.toString() + " " + inputField.value
+      }
     })
     experimentJson["generator_1"] = generator1
     experimentJson["generator_2"] = generator2

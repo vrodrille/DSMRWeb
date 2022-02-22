@@ -1,3 +1,3 @@
--i;Semilla para la generación aleatoria de instancias;1
--n;Porcentaje de ruido a añadir en los datos (en %);10
--s;Reducir datos para que contengan 7 atributos binarios relevantes (booleano);0
+-i;Semilla para la generación aleatoria de instancias;1;number
+-n;Porcentaje de ruido a añadir en los datos (en %);10;number
+-s;Reducir datos para que contengan 7 atributos binarios relevantes (booleano);0;boolean

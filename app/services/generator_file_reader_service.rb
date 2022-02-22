@@ -1,5 +1,5 @@
 class GeneratorFileReaderService
-  GeneratorParams = Struct.new(:command, :description, :default_value)
+  GeneratorParams = Struct.new(:command, :description, :default_value, :type)
 
   def self.get_generators
     files = Dir.entries("lib/generators").select { |file| file != "." && file != ".." }
