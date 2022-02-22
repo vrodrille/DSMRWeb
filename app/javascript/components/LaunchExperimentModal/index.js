@@ -141,8 +141,10 @@ function LaunchExperimentModal(){
     let generator2 = "generators." + document.getElementById("concept-drift-select").value 
     let generator2Inputs = document.querySelectorAll('[name*="[generator_2]"]')
     generator2Inputs.forEach( (inputField) =>  {
-      if (inputField.type == "checkbox" && inputField.checked){
-        generator2 = generator2 + " " + inputField.id.toString()
+      if (inputField.type == "checkbox"){
+        if (inputField.checked){
+          generator2 = generator2 + " " + inputField.id.toString()  
+        }
       } else {
         generator2 = generator2 + " " + inputField.id.toString() + " " + inputField.value
       }
