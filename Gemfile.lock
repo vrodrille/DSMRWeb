@@ -108,6 +108,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.2)
     minitest (5.14.4)
+    mqtt (0.5.0)
     msgpack (1.4.2)
     mysql2 (0.5.3)
     nio4r (2.5.8)
@@ -221,6 +222,7 @@ DEPENDENCIES
   capybara (>= 3.26)
   jbuilder (~> 2.7)
   listen (~> 3.3)
+  mqtt
   mysql2 (~> 0.5)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)

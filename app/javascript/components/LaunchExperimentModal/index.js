@@ -5,6 +5,7 @@ import getAlgorithmParams from '../../services/getAlgorithmParams'
 import getGenerators from '../../services/getGenerators'
 import getGeneratorParams from '../../services/getGeneratorParams'
 import { TOTAL_INSTANCES, INFORMATION_FREQUENCY, DRIFT_LOCATION, DRIFT_WINDOW_INSTANCES, EXPERIMENT_DURATION, clearFormFields, algorithmFieldsClearer, addFormDefaultValues } from '../../utils/experiment'
+import launchExperiment from '../../services/launchExperiment'
 
 function LaunchExperimentModal(){
 
@@ -99,6 +100,40 @@ function LaunchExperimentModal(){
     addFormDefaultValues(["total-instances","information-frequency","drift-location","drift-window-instances","experiment-duration"],[TOTAL_INSTANCES, INFORMATION_FREQUENCY, DRIFT_LOCATION, DRIFT_WINDOW_INSTANCES, EXPERIMENT_DURATION])
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    let algorithmInputs = document.querySelectorAll('[name*="[algorithm]"]')
+    let algorithmJson = {}
+    let algorithm_name = document.getElementById("algorithm-select").value 
+    algorithmJson["algorithm"] = algorithm_name + ".jar"
+    algorithmInputs.forEach( (inputField) => {
+      let inputName = inputField.id.toString()
+      algorithmJson[inputName] = inputField.value
+    })
+    let experimentJson = {}
+    let totalInstances = parseInt(document.getElementById("total-instances").value)
+    experimentJson["total_instances"] = totalInstances
+    let informationFrequency = parseInt(document.getElementById("information-frequency").value)
+    experimentJson["information_frequency"] = informationFrequency
+    experimentJson["drift_location"] = document.getElementById("drift-location").value
+    experimentJson["drift_window_instances"] = document.getElementById("drift-window-instances").value
+    let experimentDuration = document.getElementById("experiment-duration").value
+    experimentJson["time_interval"] = (experimentDuration*1000)/(totalInstances/informationFrequency)
+    let generator1 = "generators." + document.getElementById("concept-select").value 
+    let generator1Inputs = document.querySelectorAll('[name*="[generator_1]"]')
+    generator1Inputs.forEach( (inputField) =>  {
+      generator1 = generator1 + " " + inputField.id.toString() + " " + inputField.value
+    })
+    let generator2 = "generators." + document.getElementById("concept-drift-select").value 
+    let generator2Inputs = document.querySelectorAll('[name*="[generator_2]"]')
+    generator2Inputs.forEach( (inputField) =>  {
+      generator2 = generator2 + " " + inputField.id.toString() + " " + inputField.value
+    })
+    experimentJson["generator_1"] = generator1
+    experimentJson["generator_2"] = generator2
+    launchExperiment(algorithmJson, experimentJson)
+  }
+
   return(
     <div className="modal fade" id="launch-experiment-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1">
       <div className="modal-dialog modal-xl">
@@ -107,7 +142,7 @@ function LaunchExperimentModal(){
             <h5 className="modal-title" id="exampleModalLabel">Ejecutar experimento</h5>
             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={closingOperation}></button>
           </div>
-          <form id="experiment-form" action="api/experiments" method="post">
+          <form id="experiment-form" onSubmit={handleSubmit}>
             <div className="modal-body row">
               <div className="algorithm-section col-6">
                 <h6 className="mb-2 algorithm-section-header"> Algoritmo </h6>
