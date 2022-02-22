@@ -6,8 +6,8 @@ module Api
     def create
       algorithm_json = params[:algorithm]
       experiment_json = params[:experiment]
-      byebug
-      MqttClientPublisherService.publish_experiment(experiment_json)
+      ScriptRunningService.run_script(experiment_json)
+      #MqttClientPublisherService.publish_experiment(experiment_json)
       head :no_content
     end
   end
