@@ -1,0 +1,4 @@
+tamano_de_la_poblacion=50
+probabilidad_de_mutacion=0.1
+probabilidad_de_cruce=0.7
+maximo_numero_de_evaluaciones=10000
