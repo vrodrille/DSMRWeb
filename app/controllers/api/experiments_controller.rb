@@ -3,6 +3,11 @@ module Api
 
     protect_from_forgery with: :null_session
 
+    def index
+      response_json = AlgorithmExecutingCheckerService.check_algorithm_running
+      render json: response_json
+    end
+
     def create
       algorithm_json = params[:algorithm]
       experiment_json = params[:experiment]

@@ -4,13 +4,15 @@ import getAlgorithms from '../../services/getAlgorithms'
 import getAlgorithmParams from '../../services/getAlgorithmParams'
 import getGenerators from '../../services/getGenerators'
 import getGeneratorParams from '../../services/getGeneratorParams'
-import { TOTAL_INSTANCES, INFORMATION_FREQUENCY, DRIFT_LOCATION, DRIFT_WINDOW_INSTANCES, EXPERIMENT_DURATION, clearFormFields, algorithmFieldsClearer, addFormDefaultValues } from '../../utils/experiment'
+import { TOTAL_INSTANCES, INFORMATION_FREQUENCY, DRIFT_LOCATION, DRIFT_WINDOW_INSTANCES, EXPERIMENT_DURATION, clearFormFields, algorithmFieldsClearer, addFormDefaultValues, ALGORITHM_CHECKING_FREQUENCY } from '../../utils/experiment'
 import launchExperiment from '../../services/launchExperiment'
+import checkAlgorithmRunning from '../../services/checkAlgorithmRunning'
 
 function LaunchExperimentModal(){
 
   const [algorithms, setAlgorithms] = useState([])
   const [generators, setGenerators] = useState([])
+  const [experimentExecuting, setExperimentExecuting] = useState(true)
 
   useEffect(() => {
     getAlgorithms()
@@ -23,6 +25,20 @@ function LaunchExperimentModal(){
         setGenerators(response.data)  
       )
   },[])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      checkAlgorithmRunning()
+        .then( response => {
+          if (response.data.algorithm_executing){
+            setExperimentExecuting(true)
+          } else {
+            setExperimentExecuting(false)
+          }
+        })
+    }, ALGORITHM_CHECKING_FREQUENCY);
+    return () => clearInterval(interval);
+  }, [])
 
   const generateInputsOnSelectValue = (divSelector, isAlgorithmSelect) => {
     let inputDiv = document.getElementById(divSelector)
@@ -152,6 +168,7 @@ function LaunchExperimentModal(){
     experimentJson["generator_1"] = generator1
     experimentJson["generator_2"] = generator2
     launchExperiment(algorithmJson, experimentJson)
+    setExperimentExecuting(true)
   }
 
   return(
@@ -247,7 +264,7 @@ function LaunchExperimentModal(){
               </div>
             </div>
             <div className="modal-footer">
-              <button type="submit" className="btn btn-primary">Ejecutar</button>
+              { experimentExecuting ? <button type="submit" className="btn btn-primary" disabled>Ejecutar</button> : <button type="submit" className="btn btn-primary">Ejecutar</button> } 
               <button type="button" className="btn btn-sm btn-link text-secondary" data-bs-dismiss="modal" onClick={closingOperation}>Cancelar</button>
             </div>
           </form>

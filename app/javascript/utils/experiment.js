@@ -8,6 +8,8 @@ export const DRIFT_WINDOW_INSTANCES = 1
 
 export const EXPERIMENT_DURATION = 60
 
+export const ALGORITHM_CHECKING_FREQUENCY = 3000
+
 export const clearFormFields = (formSelector) => {
   let form = document.querySelector(formSelector)
   let fields = form.getElementsByTagName('input')
