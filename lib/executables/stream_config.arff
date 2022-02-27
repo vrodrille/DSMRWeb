@@ -1,9 +1,0 @@
-@relation 'generators.SEAGenerator -n 10'
-
-@attribute attrib1 numeric
-@attribute attrib2 numeric
-@attribute attrib3 numeric
-@attribute class {groupA,groupB}
-
-@data
-7.308781907032909,4.100808114922017,2.077148413097171,groupB

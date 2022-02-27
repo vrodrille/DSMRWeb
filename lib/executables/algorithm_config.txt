@@ -1,4 +1,0 @@
-parametro_1=1
-parametro_2=2
-parametro_3=3
-parametro_4=4
