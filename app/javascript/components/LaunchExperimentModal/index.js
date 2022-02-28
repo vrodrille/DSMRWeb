@@ -12,9 +12,18 @@ function LaunchExperimentModal(){
 
   const [algorithms, setAlgorithms] = useState([])
   const [generators, setGenerators] = useState([])
-  const [experimentExecuting, setExperimentExecuting] = useState(true)
+  const [experimentExecuting, setExperimentExecuting] = useState(false)
 
   useEffect(() => {
+    checkAlgorithmRunning()
+      .then( response => {
+        if (response.data.algorithm_executing){
+          setExperimentExecuting(true)
+        } else {
+          setExperimentExecuting(false)
+        }
+      })
+      
     getAlgorithms()
       .then( response =>
         setAlgorithms(response.data)
