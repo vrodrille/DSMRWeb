@@ -16,7 +16,7 @@ module Api
       AlgorithmParamsFileWriterService.write_params_file(algorithm_json, experiment_name)
       ScriptRunningService.run_script(experiment_json)
       MqttPublisherAlgorithmRunningService.run_experiment(experiment_name, experiment_json)
-      #ExperimentFileCleanerServiceself.clean_executables_directory(experiment_name)
+      ExperimentFileCleanerService.clean_executables_directory(experiment_name, algorithm_json, experiment_json)
       head :no_content
     end
   end

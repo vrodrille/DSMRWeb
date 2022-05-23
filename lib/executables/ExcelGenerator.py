@@ -2,6 +2,7 @@ import os
 import sys
 import matplotlib.pyplot as plt
 import pandas as pd
+import pathlib
 
 batch_number = 1
 processing_ended = False
@@ -11,14 +12,16 @@ batch_size = sys.argv[2]
 drift_frequency = sys.argv[3]
 drift_batches = []
 batch_data = {}
+path = pathlib.PurePath(experiment_directory)
+experiment_name = path.name
 fields = ["Timestamp","Rule","Class","NumRules","NumVars","Acc","AUC","CONF","Cov","FPR","G-Mean","GR","GR_Pct","Jacc","SuppDiff","Supp","TNR","TPR","WRAcc","WRAcc_Norm","ExecTime_ms"]
 if os.path.exists(experiment_directory):
-    with pd.ExcelWriter(experiment_directory + "/" + experiment_directory + ".xlsx") as writer:
+    with pd.ExcelWriter(experiment_directory + "/" + experiment_name + ".xlsx") as writer:
         while (not processing_ended):
             batch_directory = '%05d' % batch_number
             if os.path.exists(experiment_directory + "/" + batch_directory):
-                if os.path.exists(experiment_directory + "/" + batch_directory + "/" + experiment_directory + "_tst_quaSumm.txt"):
-                    dataframe_text_file = pd.read_csv(experiment_directory + "/" + batch_directory + "/" + experiment_directory + "_tst_quaSumm.txt", delimiter="\\t", engine="python")
+                if os.path.exists(experiment_directory + "/" + batch_directory + "/" + experiment_name + "_tst_quaSumm.txt"):
+                    dataframe_text_file = pd.read_csv(experiment_directory + "/" + batch_directory + "/" + experiment_name + "_tst_quaSumm.txt", delimiter="\\t", engine="python")
                     batch_data[batch_number] = dataframe_text_file.values.tolist()[0]
                     last_batch_with_training_data = batch_number
                 else:
