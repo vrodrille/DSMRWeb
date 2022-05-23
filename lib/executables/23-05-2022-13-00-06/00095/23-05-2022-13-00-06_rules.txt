@@ -1,0 +1,9 @@
+*************************************************
+Timestamp 94:
+Rule 0 (ID: -423979664):
+	Variable elevel = level1  level2  level3  level4  
+	Variable hyears = Label 0 (-3.4028235E38 1.0 5.8333335)	Label 2 (5.8333335 10.666667 15.5)	Label 6 (25.166666 30.0 3.4028235E38)	
+	Variable loan = Label 0 (-3.4028235E38 0.0 83333.336)	Label 1 (0.0 83333.336 166666.67)	Label 3 (166666.67 250000.0 333333.34)	
+	Consecuent: 0
+
+

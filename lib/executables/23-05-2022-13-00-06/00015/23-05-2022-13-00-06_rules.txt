@@ -1,0 +1,9 @@
+*************************************************
+Timestamp 14:
+Rule 0 (ID: 1093741914):
+	Variable zipcode = zipcode2  zipcode7  zipcode8  zipcode9  
+	Variable hvalue = Label 4 (90723.984 105482.66 120241.33)	Label 6 (120241.33 135000.0 3.4028235E38)	
+	Variable hyears = Label 1 (1.0 5.8333335 10.666667)	Label 2 (5.8333335 10.666667 15.5)	Label 4 (15.5 20.333334 25.166666)	
+	Consecuent: 0
+
+

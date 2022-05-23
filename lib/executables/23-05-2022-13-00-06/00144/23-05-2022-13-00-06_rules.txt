@@ -1,0 +1,8 @@
+*************************************************
+Timestamp 143:
+Rule 0 (ID: 1301614280):
+	Variable zipcode = zipcode1  zipcode3  zipcode5  zipcode6  zipcode7  
+	Variable loan = Label 2 (83333.336 166666.67 250000.0)	Label 3 (166666.67 250000.0 333333.34)	Label 4 (250000.0 333333.34 416666.66)	Label 6 (416666.66 500000.0 3.4028235E38)	
+	Consecuent: 0
+
+

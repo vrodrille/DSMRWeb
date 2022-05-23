@@ -1,4 +1,0 @@
-Tamaño de la población;tamano_de_la_poblacion;50
-Probabilidad de mutación;probabilidad_de_mutacion;0.1
-Probabilidad de cruce;probabilidad_de_cruce;0.7
-Máximo número de evaluaciones;maximo_numero_de_evaluaciones;10000

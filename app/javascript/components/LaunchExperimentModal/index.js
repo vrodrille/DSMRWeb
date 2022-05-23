@@ -138,7 +138,7 @@ function LaunchExperimentModal(){
     let algorithmInputs = document.querySelectorAll('[name*="[algorithm]"]')
     let algorithmJson = {}
     let algorithm_name = document.getElementById("algorithm-select").value 
-    algorithmJson["algorithm"] = algorithm_name + ".jar"
+    algorithmJson["algorithm"] = algorithm_name
     algorithmInputs.forEach( (inputField) => {
       let inputName = inputField.id.toString()
       algorithmJson[inputName] = inputField.value
