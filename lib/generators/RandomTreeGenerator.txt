@@ -1,0 +1,9 @@
+-r;Semilla para la generación aleatoria del árbol;1;number
+-i;Semilla para la generación aleatoria de instancias;1;number
+-c;Número de clases a generar;2;number
+-o;Número de atributos nominales a generar;5;number
+-u;Número de atributos numéricos a generar;5;number
+-v;Número de valores a generar por cada atributo nominal;5;number
+-d;Profundidad máxima del concepto del árbol;5;number
+-l;Primer nivel del árbol por encima de la profundidad máxima que puede tener hojas;3;number
+-f;Fracción de hojas por nivel desde el primer nivel (valor decimal de 0 a 1);0.15;number

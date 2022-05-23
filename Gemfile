@@ -23,7 +23,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'rails-i18n', '~> 6.0'
-
+gem 'mqtt'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

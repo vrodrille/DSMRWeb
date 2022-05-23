@@ -1,0 +1,8 @@
+*************************************************
+Timestamp 177:
+Rule 0 (ID: 466072646):
+	Variable zipcode = zipcode1  zipcode5  zipcode7  zipcode8  zipcode9  
+	Variable hvalue = Label 0 (-3.4028235E38 46447.965 61206.637)	Label 3 (75965.31 90723.984 105482.66)	Label 5 (105482.66 120241.33 135000.0)	Label 6 (120241.33 135000.0 3.4028235E38)	
+	Consecuent: 0
+
+

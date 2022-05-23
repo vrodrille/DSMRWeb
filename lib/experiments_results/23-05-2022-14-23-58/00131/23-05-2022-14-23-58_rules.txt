@@ -1,0 +1,8 @@
+*************************************************
+Timestamp 130:
+Rule 0 (ID: -40735468):
+	Variable elevel = level1  level2  level4  
+	Variable hvalue = Label 5 (105482.66 120241.33 135000.0)	Label 6 (120241.33 135000.0 3.4028235E38)	
+	Consecuent: 0
+
+

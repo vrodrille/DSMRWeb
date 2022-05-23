@@ -1,0 +1,15 @@
+Tamaño del batch;period;2500
+Semilla;seed;0
+Representación de las reglas;RulesRepresentation;dnf
+Número de etiquetas;nLabels;7
+Máximo número de evaluaciones;nGen;100
+Tamaño de la población;popLength;50
+Probabilidad de cruce;crossProb;0.7
+Probabilidad de mutación;mutProb;0.1
+Evaluador;evaluator;byDiversity
+Tamaño de la ventana deslizante;SlidingWindowSize;5
+Objetivo 1;Obj1;WRAccNorm
+Objetivo2;Obj2;SuppDiff
+Objetivo3;Obj3;NULL
+Medidor de diversidad;diversity;WRAccNorm
+Filtro;filter;TokenCompetition

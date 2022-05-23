@@ -1,0 +1,7 @@
+*************************************************
+Timestamp 6:
+Rule 0 (ID: 1316717744):
+	Variable zipcode = zipcode1  zipcode2  zipcode4  zipcode6  
+	Consecuent: 0
+
+

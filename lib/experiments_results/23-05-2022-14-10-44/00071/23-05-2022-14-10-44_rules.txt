@@ -1,0 +1,7 @@
+*************************************************
+Timestamp 70:
+Rule 0 (ID: -768781532):
+	Variable car = car1  car5  car7  car10  car14  car15  car17  car18  car19  
+	Consecuent: 0
+
+
