@@ -13,3 +13,4 @@ Objetivo2;Obj2;SuppDiff
 Objetivo3;Obj3;NULL
 Medidor de diversidad;diversity;WRAccNorm
 Filtro;filter;TokenCompetition
+Umbral de cambio;driftThreshold;0.5
