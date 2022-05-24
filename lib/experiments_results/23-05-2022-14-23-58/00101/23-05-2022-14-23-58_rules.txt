@@ -1,8 +1,0 @@
-*************************************************
-Timestamp 100:
-Rule 0 (ID: 502309948):
-	Variable zipcode = zipcode1  zipcode3  zipcode4  zipcode7  zipcode8  
-	Variable hvalue = Label 5 (105482.66 120241.33 135000.0)	Label 6 (120241.33 135000.0 3.4028235E38)	
-	Consecuent: 0
-
-

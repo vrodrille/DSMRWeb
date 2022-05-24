@@ -1,8 +1,0 @@
-*************************************************
-Timestamp 43:
-Rule 0 (ID: -661845328):
-	Variable car = car1  car2  car3  car4  car5  car6  car7  car9  car10  car12  car13  car14  car17  car18  car19  
-	Variable loan = Label 5 (333333.34 416666.66 500000.0)	Label 6 (416666.66 500000.0 3.4028235E38)	
-	Consecuent: 0
-
-

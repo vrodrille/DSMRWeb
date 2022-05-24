@@ -1,8 +1,0 @@
-*************************************************
-Timestamp 49:
-Rule 0 (ID: -1869456778):
-	Variable car = car1  car2  car4  car5  car6  car10  car11  car14  car15  car16  car17  car19  
-	Variable hyears = Label 1 (1.0 5.8333335 10.666667)	Label 4 (15.5 20.333334 25.166666)	Label 6 (25.166666 30.0 3.4028235E38)	
-	Consecuent: 0
-
-

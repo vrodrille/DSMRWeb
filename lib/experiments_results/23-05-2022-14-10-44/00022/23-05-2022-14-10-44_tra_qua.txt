@@ -1,2 +1,0 @@
-Timestamp	Rule	ID	Consequent	SuppDiff	WRAcc_Norm	WRAcc_Norm(Diversity)
-21.000000	0	-2013098436	0	0.040800	0.520400	0.520400

@@ -1,9 +1,0 @@
-*************************************************
-Timestamp 78:
-Rule 0 (ID: -1788729266):
-	Variable zipcode = zipcode2  zipcode3  zipcode4  zipcode5  zipcode6  
-	Variable hyears = Label 5 (20.333334 25.166666 30.0)	
-	Variable loan = Label 1 (0.0 83333.336 166666.67)	Label 3 (166666.67 250000.0 333333.34)	Label 4 (250000.0 333333.34 416666.66)	Label 6 (416666.66 500000.0 3.4028235E38)	
-	Consecuent: 0
-
-
