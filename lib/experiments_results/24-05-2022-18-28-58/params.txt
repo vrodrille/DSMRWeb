@@ -1,0 +1,26 @@
+Parámetros del algoritmo:
+algorithm = stream-moea
+period = 5000
+seed = 0
+RulesRepresentation = dnf
+nLabels = 5
+nGen = 100
+popLength = 50
+crossProb = 0.7
+mutProb = 0.1
+evaluator = byDiversity
+SlidingWindowSize = 5
+Obj1 = WRAccNorm
+Obj2 = SuppDiff
+Obj3 = NULL
+diversity = WRAccNorm
+filter = TokenCompetition
+driftThreshold = 0.5
+Parámetros del generador:
+total_instances = 500000
+information_frequency = 10000
+drift_location = 100000
+drift_window_instances = 1
+time_interval = 1200
+generator_1 = generators.AgrawalGenerator -f 1 -i 1 -p 0.05
+generator_2 = generators.AgrawalGenerator -f 6 -i 1 -p 0.05

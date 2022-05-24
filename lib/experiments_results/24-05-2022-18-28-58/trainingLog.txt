@@ -1,0 +1,73 @@
+There has been a training at batch number 00002
+There has been a training at batch number 00003
+TPR: 0.4574
+Confidence: 0.49341963322545845
+There has been a training at batch number 00004
+TPR: 0.2894
+Confidence: 0.49050847457627117
+There has been a training at batch number 00005
+TPR: 0.2614
+Confidence: 0.4846125324434557
+There has been a training at batch number 00006
+TPR: 0.112
+Confidence: 0.45714285714285713
+There has been a training at batch number 00007
+TPR: 0.3684
+Confidence: 0.48093994778067883
+There has been a training at batch number 00008
+TPR: 0.1744
+Confidence: 0.4762424904423812
+There has been a training at batch number 00009
+TPR: 0.2354
+Confidence: 0.49144050104384135
+There has been a training at batch number 00010
+TPR: 0.2316
+Confidence: 0.4810968009970918
+There has been a training at batch number 00011
+TPR: 0.3674
+Confidence: 0.48675145733969266
+There has been a training at batch number 00012
+TPR: 0.3352
+Confidence: 0.48820273812991555
+There has been a training at batch number 00013
+TPR: 0.3382
+Confidence: 0.4951683748169839
+There has been a training at batch number 00014
+TPR: 0.278
+Confidence: 0.4865243262163108
+There has been a training at batch number 00015
+TPR: 0.4418
+Confidence: 0.4899090707473941
+There has been a training at batch number 00016
+TPR: 0.321
+Confidence: 0.48169267707082836
+There has been a training at batch number 00017
+TPR: 0.3908
+Confidence: 0.48582794629537546
+There has been a training at batch number 00018
+TPR: 0.212
+Confidence: 0.46944198405668736
+There has been a training at batch number 00019
+TPR: 0.2058
+Confidence: 0.49975716367168527
+There has been a training at batch number 00020
+TPR: 0.3124
+Confidence: 0.4927444794952681
+There has been a training at batch number 00021
+TPR: 0.2284
+Confidence: 0.48533786655333616
+There has been a training at batch number 00022
+TPR: 0.2132
+Confidence: 0.48653582838886356
+There has been a training at batch number 00023
+TPR: 0.34
+Confidence: 0.491471523561723
+There has been a training at batch number 00024
+TPR: 0.284
+Confidence: 0.4965034965034965
+There has been a training at batch number 00025
+TPR: 0.2598
+Confidence: 0.47968980797636634
+There has been a training at batch number 00026
+TPR: 0.1826
+Confidence: 0.49165320409262253

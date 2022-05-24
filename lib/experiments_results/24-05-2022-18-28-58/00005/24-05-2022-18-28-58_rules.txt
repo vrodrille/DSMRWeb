@@ -1,0 +1,8 @@
+*************************************************
+Timestamp 4:
+Rule 0 (ID: -1753030706):
+	Variable car = car1  car2  car3  car4  car5  car6  car7  car9  car10  car11  car12  car14  car16  car18  car20  
+	Variable hvalue = Label 2 (68585.98 90723.984 112861.99)	Label 4 (112861.99 135000.0 3.4028235E38)	
+	Consecuent: 0
+
+
