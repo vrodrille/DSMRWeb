@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import getExperimentsResults from '../../services/getExperimentsResults'
+import { formatExperimentName } from '../../utils/experiment'
 
 function ExperimentsResultsModal(){
+
+  const [experiments, setExperiments] = useState([])
 
   useEffect(() => {
     getExperimentsResults()
       .then( response => {
-        
+        setExperiments(response.data)
       })
   }, [])
 
@@ -20,9 +23,23 @@ function ExperimentsResultsModal(){
             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div className="modal-body">
+            <form id="experiments-results-form">
+              { experiments.map( (experiment) => {
+                  return (
+                    <React.Fragment key={experiment}>
+                      <div className="form-check">
+                        <input className="form-check-input" type="checkbox" value="" id={experiment}></input>
+                        <label className="form-check-label" htmlFor={experiment}>{formatExperimentName(experiment)}</label>
+                      </div>
+                      <hr />
+                    </React.Fragment>
+                  )
+                })
+              }
+            </form>
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-primary">Descargar</button>
+            <button type="submit" form="experiments-results-form" className="btn btn-primary">Descargar</button>
             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
           </div>
         </div>
