@@ -43,3 +43,11 @@ export const formatExperimentName = (experiment) => {
   let experimentNameFormatted = experimentNameParts[0] + "/" + experimentNameParts[1] + "/" + experimentNameParts[2] + " " + experimentNameParts[3] + ":" + experimentNameParts[4] + ":" + experimentNameParts[5]
   return experimentNameFormatted
 }
+
+export const uncheckFormFields = (formSelector) => {
+  let form = document.querySelector(formSelector)
+  let checkboxes = form.querySelectorAll("input")
+  checkboxes.forEach( (checkbox) => {
+    checkbox.checked = false
+  })
+}
