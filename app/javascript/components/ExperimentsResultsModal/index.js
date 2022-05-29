@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import getExperimentsResults from '../../services/getExperimentsResults'
 import { formatExperimentName, uncheckFormFields } from '../../utils/experiment'
+import './ExperimentsResultsModal.css'
 
 function ExperimentsResultsModal(){
 
@@ -35,7 +36,7 @@ function ExperimentsResultsModal(){
             <h5 className="modal-title" id="staticBackdropLabel">Experimentos anteriores</h5>
             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={closingOperation}></button>
           </div>
-          <div className="modal-body">
+          <div className="modal-body overflow-scroll" id="experiments-results-div">
             <form id="experiments-results-form" onSubmit={handleSubmit}>
               { experiments.map( (experiment) => {
                   return (
