@@ -105,7 +105,7 @@ Services are Ruby classes implemented to bring support to the controllers. The s
 
 The only serializer used in this Web Application is the Sensor serializer.
 
-### Files format
+### File formats
 
 Some files have been used to store information of an object instead of creating a database table. This files will be listed and its format summarized in this section.
 
