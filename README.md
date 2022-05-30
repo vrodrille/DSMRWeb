@@ -1,4 +1,4 @@
-﻿# README
+# README
 
 ## Project description
 
@@ -24,6 +24,7 @@ Multiple Ruby gems (Ruby libraries) were used in this project, these gems are:
 * [Rails Internationalization (I18n) API](https://guides.rubyonrails.org/i18n.html). This gem was used to translate the error messages returned in the API calls in the context of the creation or update of a sensor in the App.
 * [Mysql2](https://github.com/brianmario/mysql2). This gem was used to implement a MySQL database on the Ruby on Rails backend.
 * [Ruby-mqtt](https://github.com/njh/ruby-mqtt). This gem implements an MQTT client for Ruby, it was used to enable the communication between the server and the MQTT broker [Mosquitto](https://mosquitto.org/).
+* [Rubyzip](https://github.com/rubyzip/rubyzip). This gem was used to stream zip files for their download.
 
 As for React the only React library used in this project is [Wouter](https://github.com/molefrog/wouter), used for the routing between React components.
 
@@ -49,7 +50,7 @@ In this section, the React Components implemented will be listed and their funct
 - LaunchExperimentModal. This Component renders the modal that contains the form for the algorithm parameters and the data generator parameters; the user can select between different algorithm and generators, when one algorithm or generator is selected its fields will be generated with default values. In this form the data validation is done with client-side validation, checking if every field isn't null. If the user places the cursor over the data generator parameters, a Tooltip will appear with an explanation of the field.
 - ExperimentsResultsModal. This Component renders the modal that allows the download of the experiments' results in a zip file.
 
-#### JavaScript services
+#### Javascript services
 
 In this section all the JavaScript functions used to send API requests will be listed.
 
@@ -68,15 +69,15 @@ In this section all the JavaScript functions used to send API requests will be l
 
 As stated before, the Back-end part has been implemented with **Ruby on Rails** framework.
 
-#### Database
+#### Database
 
 The database system used in this project is MySQL. The only table created in the database is the sensor table with the latitude, longitude, location, IP address and information attributes.
 
-#### Models
+#### Models
 
 The only model implemented in this Web Application is the sensor model. It validates the presence of the latitude, longitude, location, IP address attributes and that the length of the information attribute doesn't excede 200 characters.
 
-#### Controllers
+#### Controllers
 
 In this section, the controllers implemented will be listed and their function will be summarized.
 
@@ -104,7 +105,7 @@ Services are Ruby classes implemented to bring support to the controllers. The s
 
 The only serializer used in this Web Application is the Sensor serializer.
 
-### Files format
+### Files format
 
 Some files have been used to store information of an object instead of creating a database table. This files will be listed and its format summarized in this section.
 
@@ -129,7 +130,7 @@ For the first stream, the **MQTT** protocol is used to sent the data generation 
 
 From the perspective of the Web Application this communication is established when the user configures the algorithm and data generation parameters and launches a experiment, this request is received by the server and (after starting the Java algorithm that will wait for the data to be generated) it will create a MQTT Client using the **Ruby-MQTT** library that will publish a JSON message to the topic experiments with the parameters for the data generation and then will disconnect itself from the broker. It's important to say that this MQTT client is created in every request to launch an experiment made from the client to the server.
 
-#### Communication from the Raspberry boards to the server
+#### Communication from the Raspberry boards to the server
 
 This stream is much simpler, once the JSON message is received by the Raspberry boards, each Raspberry will run the script **MOAKafkaProducer** with the given configuration. This script written in Scala, will create an **Apache Kafka Producer** that will send to the Kafka Broker a stream of MoA instances that will be collected and processed by the Java algorithm. Once the script has sent all the instances detailed on the message it will finish its execution, ending the established communication between the Raspberry boards and the server to launch a experiment.
 
