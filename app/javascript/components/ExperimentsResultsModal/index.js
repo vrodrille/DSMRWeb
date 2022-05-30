@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import getExperimentsResults from '../../services/getExperimentsResults'
+import downloadExperimentsResults from '../../services/downloadExperimentsResults'
 import { formatExperimentName, uncheckFormFields } from '../../utils/experiment'
 import './ExperimentsResultsModal.css'
 
@@ -20,7 +21,7 @@ function ExperimentsResultsModal(){
     let experimentForm = document.getElementById("experiments-results-form")
     let experimentInputs = experimentForm.querySelectorAll("input:checked")
     experimentInputs.forEach( (experimentSelected) => {
-      console.log(experimentSelected.value)
+      downloadExperimentsResults(experimentSelected.value)
     })
   }
 

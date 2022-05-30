@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :algorithms, param: :algorithm_name
     resources :generators, param: :generator_name
     resources :experiments
-    resources :experiments_results
+    resources :experiments_results, param: :experiment
   end
 
   # This line is needed in order to let React realize the routing between pages instead of Rails
