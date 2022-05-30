@@ -1,8 +1,0 @@
-*************************************************
-Timestamp 46:
-Rule 0 (ID: -144191696):
-	Variable zipcode = zipcode3  zipcode5  zipcode7  zipcode8  zipcode9  
-	Variable hyears = Label 1 (1.0 5.8333335 10.666667)	Label 2 (5.8333335 10.666667 15.5)	Label 3 (10.666667 15.5 20.333334)	Label 4 (15.5 20.333334 25.166666)	Label 6 (25.166666 30.0 3.4028235E38)	
-	Consecuent: 0
-
-

@@ -37,3 +37,9 @@ export const addFormDefaultValues = (formFields, defaultValues) => {
     field.value = defaultValues[i]
   }
 }
+
+export const formatExperimentName = (experiment) => {
+  let experimentNameParts = experiment.split("-")
+  let experimentNameFormatted = experimentNameParts[0] + "/" + experimentNameParts[1] + "/" + experimentNameParts[2] + " " + experimentNameParts[3] + ":" + experimentNameParts[4] + ":" + experimentNameParts[5]
+  return experimentNameFormatted
+}
