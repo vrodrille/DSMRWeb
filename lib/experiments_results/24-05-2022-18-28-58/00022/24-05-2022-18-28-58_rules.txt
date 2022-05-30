@@ -1,9 +1,0 @@
-*************************************************
-Timestamp 21:
-Rule 0 (ID: -144607556):
-	Variable zipcode = zipcode1  zipcode3  zipcode5  zipcode6  zipcode7  zipcode8  zipcode9  
-	Variable hvalue = Label 1 (46447.965 68585.98 90723.984)	Label 2 (68585.98 90723.984 112861.99)	Label 4 (112861.99 135000.0 3.4028235E38)	
-	Variable loan = Label 0 (-3.4028235E38 0.0 125000.0)	Label 3 (250000.0 375000.0 500000.0)	Label 4 (375000.0 500000.0 3.4028235E38)	
-	Consecuent: 0
-
-

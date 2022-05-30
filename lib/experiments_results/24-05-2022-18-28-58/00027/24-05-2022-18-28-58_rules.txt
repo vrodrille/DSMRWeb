@@ -1,8 +1,0 @@
-*************************************************
-Timestamp 26:
-Rule 0 (ID: 269170364):
-	Variable elevel = level0  level1  level3  level4  
-	Variable hyears = Label 1 (1.0 8.25 15.5)	Label 2 (8.25 15.5 22.75)	Label 3 (15.5 22.75 30.0)	
-	Consecuent: 0
-
-
