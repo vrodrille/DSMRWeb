@@ -1,6 +1,8 @@
 module Api
   class ExperimentsResultsController < ApplicationController
 
+    skip_before_action :verify_authenticity_token
+
     def index
       experiments_results = ExperimentsResultsFileListingService.get_experiments_results
       render json: experiments_results
@@ -19,6 +21,13 @@ module Api
       )
       response.headers["Last-Modified"] = Time.now.httpdate.to_s 
       send_file experiment_zip_path, :type => 'application/zip', :disposition => 'attachment'
+    end
+
+    def destroy
+      experiment = params[:experiment]
+      experiment_zip_path = "lib/" + experiment + ".zip"
+      system("rm " + experiment_zip_path)
+      head :no_content
     end
   end
 end

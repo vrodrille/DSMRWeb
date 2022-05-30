@@ -1,4 +1,4 @@
-import axios, { Axios } from 'axios'
+import axios from 'axios'
 
 export default async function downloadExperimentsResults(experiment){
   axios({
@@ -12,5 +12,6 @@ export default async function downloadExperimentsResults(experiment){
     link.setAttribute('download', experiment + '.zip')
     document.body.appendChild(link)
     link.click()
+    axios.delete(`api/experiments_results/${experiment}`)
   })
 }
