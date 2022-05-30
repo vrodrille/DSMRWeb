@@ -1,6 +1,8 @@
 module Api
   class ExperimentsResultsController < ApplicationController
 
+    require 'zip'
+
     skip_before_action :verify_authenticity_token
 
     def index
@@ -10,24 +12,17 @@ module Api
 
     def show
       experiment = params[:experiment]
-      experiment_zip_path = "lib/" + experiment + ".zip"
-      command_line = "zip -r9 " + experiment_zip_path + " lib/experiments_results/" + experiment
-      system(command_line)
       experiment_zip_name = experiment + ".zip"
-      send_file_headers!(
-        type: "application/zip",
-        disposition: "attachment",
-        filename: experiment_zip_name
-      )
-      response.headers["Last-Modified"] = Time.now.httpdate.to_s 
-      send_file experiment_zip_path, :type => 'application/zip', :disposition => 'attachment'
-    end
-
-    def destroy
-      experiment = params[:experiment]
-      experiment_zip_path = "lib/" + experiment + ".zip"
-      system("rm " + experiment_zip_path)
-      head :no_content
+      compressed_filestream = Zip::OutputStream.write_buffer do |zos|
+        Dir.chdir("lib/experiments_results/" + experiment)
+        Dir.glob("**/*").reject {|fn| File.directory?(fn) }.each do |file|
+          zos.put_next_entry(file)
+          zos.print IO.read(file)
+        end
+      end
+      Dir.chdir("../../..")
+      compressed_filestream.rewind
+      send_data compressed_filestream.read, filename: experiment_zip_name
     end
   end
 end
