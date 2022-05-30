@@ -1,0 +1,9 @@
+*************************************************
+Timestamp 51:
+Rule 0 (ID: 574025176):
+	Variable car = car1  car3  car4  car5  car7  car8  car9  car10  car12  car14  car17  car19  
+	Variable hvalue = Label 1 (46447.965 61206.637 75965.31)	Label 6 (120241.33 135000.0 3.4028235E38)	
+	Variable loan = Label 1 (0.0 83333.336 166666.67)	Label 3 (166666.67 250000.0 333333.34)	Label 4 (250000.0 333333.34 416666.66)	Label 5 (333333.34 416666.66 500000.0)	
+	Consecuent: 0
+
+
