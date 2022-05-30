@@ -47,7 +47,7 @@ In this section, the React Components implemented will be listed and their funct
 - DeleteModal. This Component renders a modal that will pop up on the deletion of a marker asking confirmation to the user, if the user confirms that he wants to delete the selected marker or sensor, the API request will be sent to delete it; if not, the modal will close.
 - Sidebar. This Component renders the sidebar that contains the buttons to pop up the experiment modal and the experiment results modal.
 - LaunchExperimentModal. This Component renders the modal that contains the form for the algorithm parameters and the data generator parameters; the user can select between different algorithm and generators, when one algorithm or generator is selected its fields will be generated with default values. In this form the data validation is done with client-side validation, checking if every field isn't null. If the user places the cursor over the data generator parameters, a Tooltip will appear with an explanation of the field.
-- ExperimentsResultsModal. This Component renders the modal that allows the download of the experiments' results in a zip file, the user can select single or multiple experiments for the download.
+- ExperimentsResultsModal. This Component renders the modal that allows the download of the experiments' results in a zip file.
 
 #### JavaScript services
 
@@ -63,7 +63,6 @@ In this section all the JavaScript functions used to send API requests will be l
 - getGeneratorParams. Sends an API request to get the parameters of the generator selected by the user.
 - launchExperiment. Sends an API request to run an algorithm and the data generator script with the given parameters.
 - checkAlgorithmRunning. Sends an API requests to check if there's an experiment being made.
-- downloadExperimentsResults. Sends an API request to download the experiment's results selected by the user and another one to delete the zip file generated on the server side once the download has finished.
 
 ### Back-end
 
@@ -85,7 +84,7 @@ In this section, the controllers implemented will be listed and their function w
 - Generators controller. This controller is used to process any interaction related to the data generators. This controller has 2 actions: index (to get all the data generators stored in the generators directory) and show (to get the parameters of the specified data generator from its file in the generators directory).
 - Algorithms controller. This controller is used to process any interaction related to algorithms. The behaviour and use of this controller is identical to the generators controller, it implements 2 actions: index (to get all the algorithms stored in the algorithms directory) and show (to get the parameters of the specified algorithm from its correspondant file in the algorithms directory).
 - Experiments controller. This controller is used to process any interaction related to experiments, i.e. the execution of an algorithm with the specified data generators. This controller implements 2 actions: index (to check if there's an experiment running at the moment) and create (to launch an experiment with the specified parameters of the algorithm and the data generators).
-- Experiments results controller. This controller is used to process any interaction related to the experiments' results. This controller implements 3 actions: index (to get all the experiments' results stored in the experiments_results folder), show (to download the specified experiment's results) and destroy (to delete the zip generated in the previous action).
+- Experiments results controller. This controller is used to process any interaction related to the experiments' results. This controller implements 2 actions: index (to get all the experiments' results stored in the experiments_results folder) and show (to download the specified experiment's results).
 
 #### Services
 
@@ -137,4 +136,3 @@ This stream is much simpler, once the JSON message is received by the Raspberry 
 To finish this section a sequence diagram is included to sum up the interactions on the communication between the server and the Raspberry boards.
 
 ![Sequence diagram of the communication between the server and the Raspberry Pis](documentation/server-commmunication.png)
-
