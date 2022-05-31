@@ -26,7 +26,9 @@ Multiple Ruby gems (Ruby libraries) were used in this project, these gems are:
 * [Ruby-mqtt](https://github.com/njh/ruby-mqtt). This gem implements an MQTT client for Ruby, it was used to enable the communication between the server and the MQTT broker [Mosquitto](https://mosquitto.org/).
 * [Rubyzip](https://github.com/rubyzip/rubyzip). This gem was used to stream zip files for their download.
 
-As for React the only React library used in this project is [Wouter](https://github.com/molefrog/wouter), used for the routing between React components.
+As for React the only React library used in this project (aside Rect Leaflet) is [Wouter](https://github.com/molefrog/wouter), used for the routing between React components.
+
+As for the Python3 script **ExcelGenerator.py** the python libraries [pandas](https://pandas.pydata.org/) and [MatPlotlib](https://matplotlib.org/) were used. 
 
 ## Implementation
 
@@ -67,7 +69,7 @@ In this section all the JavaScript functions used to send API requests will be l
 
 ### Back-end
 
-As stated before, the Back-end part has been implemented with **Ruby on Rails** framework.
+As stated before, the Back-end part has been implemented with **Ruby on Rails** framework using version **6.1.4.1**.
 
 #### Database
 
@@ -126,7 +128,7 @@ Hence, there's a two way communication between the server and the Raspberry boar
 
 #### Communication from the server to the Raspberry boards
 
-For the first stream, the **MQTT** protocol is used to sent the data generation parameters from the server to each Raspberry board. Each Raspberry board will subscribe to the topic experiments on the **Mosquitto** broker of the server, and will process the JSON message received from the server to run the script **MOAKafkaProducer** that will generate the data with the configuration of the already mentioned message. To do this, every Raspberry Pi will run on boot (using a Cron job scheduled with Crontab) a script called **RaspberryMQTTClient**, this script written in Python uses Paho MQTT library to connect to the Mosquitto broker and process every message sent by the server.
+For the first stream, the **MQTT** protocol is used to sent the data generation parameters from the server to each Raspberry board. Each Raspberry board will subscribe to the topic experiments on the **Mosquitto** broker of the server, and will process the JSON message received from the server to run the script **MOAKafkaProducer** that will generate the data with the configuration of the already mentioned message. To do this, every Raspberry Pi will run on boot (using a Cron job scheduled with Crontab) a script called **RaspberryMQTTClient**, this script written in Python uses [Paho MQTT library](https://pypi.org/project/paho-mqtt/) to connect to the Mosquitto broker and process every message sent by the server.
 
 From the perspective of the Web Application this communication is established when the user configures the algorithm and data generation parameters and launches a experiment, this request is received by the server and (after starting the Java algorithm that will wait for the data to be generated) it will create a MQTT Client using the **Ruby-MQTT** library that will publish a JSON message to the topic experiments with the parameters for the data generation and then will disconnect itself from the broker. It's important to say that this MQTT client is created in every request to launch an experiment made from the client to the server.
 
@@ -137,3 +139,9 @@ This stream is much simpler, once the JSON message is received by the Raspberry 
 To finish this section a sequence diagram is included to sum up the interactions on the communication between the server and the Raspberry boards.
 
 ![Sequence diagram of the communication between the server and the Raspberry Pis](documentation/server-commmunication.png)
+
+## Project download
+
+It's necessary to inform that the .gitkeep file present in the experiments_results folder must be deleted once the project has been downloaded or cloned in order for the experiments_results_controller to work properly. The .gitkeep file has been added only to be able to push the experiments_results folder to the repo.
+
+This project has been developed in **MacOS** and it'ss only compatible with **GNU/Linux** and **MacOS**. If you are a MacOS user you have to be cautious with the generation of .DS_Store files while working on the project, as these files mess up the correct performance of some controllers like the experiments_results_controller.
