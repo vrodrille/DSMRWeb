@@ -13,6 +13,9 @@ import { Modal } from 'bootstrap'
 window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js')
 import App from '../components/App'
 
+/**
+ * This HTML element is created to render the modals of the Application on a div that is above all React components.
+ */
 let element = document.createElement('div')
 element.setAttribute('id', 'root')
 
