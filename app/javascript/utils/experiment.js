@@ -4,7 +4,7 @@
  */
 /**
  * Esta constante de tipo entero representa el número total de instancias por defecto incluida en la sección de
- * parámetros de los generadores.
+ * parámetros de los generadores de datos.
  */
 export const TOTAL_INSTANCES = 500000
 

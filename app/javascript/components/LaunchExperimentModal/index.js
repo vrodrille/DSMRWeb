@@ -8,12 +8,36 @@ import { TOTAL_INSTANCES, INFORMATION_FREQUENCY, DRIFT_LOCATION, DRIFT_WINDOW_IN
 import launchExperiment from '../../services/launchExperiment'
 import checkAlgorithmRunning from '../../services/checkAlgorithmRunning'
 
+/**
+ * Este componente tiene como función el renderizado del modal para la ejecución de experimentos, posee la estructura más compleja entre todos los
+ * componentes ya que está compuesto por tres secciones (la del algoritmo y las de los dos generadores) que generan de forma dinámica sus elementos 
+ * HTML en función del valor escogido en un select. En este componente se utilizan componentes no controlados para la implementación de los formularios,
+ * esto implica que los valores de los campos de los formularios no son almacenados en un estado y utilizados, sino que son obtenidos directamente del
+ * documento.
+ * La validación de datos en este componente se realiza en el cliente, comprobando únicamente que ningún campo es nulo.
+ * Por último, es necesario mencionar el uso de Tooltips para añadir una descripción a los parámetros de los generadores.
+ */
 function LaunchExperimentModal(){
 
+  /**
+   * Este hook useState es utilizado para almacenar un Array con la lista de algoritmos disponibles en la Aplicación.
+   */
   const [algorithms, setAlgorithms] = useState([])
+  /**
+   * Este hook useState es utilizado para almacenar un Array con la lista de generadores disponibles en la Aplicación.
+   */
   const [generators, setGenerators] = useState([])
+  /**
+   * Este hook useState es utilizado para almacenar un Boolean que indica si hay un experimento en ejecución o no, en caso afirmativo
+   * se desactiva el botón de ejecución del experimento.
+   */
   const [experimentExecuting, setExperimentExecuting] = useState(false)
 
+  /**
+   * Este hook useEffect es utilizado para realizar tres tareas: comprobar si hay un experimento ejecutándose, obtener la lista de algoritmos
+   * disponibles en la Aplicación y obtener la lista de generadores disponibles. Debido a que su lista de dependencias está vacía el useEffect 
+   * se ejecutará únicamente en el renderizado inicial del componente.
+   */
   useEffect(() => {
     checkAlgorithmRunning()
       .then( response => {
@@ -35,6 +59,11 @@ function LaunchExperimentModal(){
       )
   },[])
 
+  /**
+   * Este hook useEffect es utilizado para llevar a cabo una llamada a la API periódica con el objetivo de comprobar si hay un experimento
+   * en ejecución. Si bien la lista de dependencias está vacía la función useEffect se ejecutará en el renderizado inicial del componente pero,
+   * al usar la función setInterval esta se ejecutará periódicamente con una frecuencia determinada por la constante ALGORITHM_CHECKING_FREQUENCY.
+   */
   useEffect(() => {
     const interval = setInterval(() => {
       checkAlgorithmRunning()
@@ -49,6 +78,15 @@ function LaunchExperimentModal(){
     return () => clearInterval(interval);
   }, [])
 
+  /**
+   * Esta función es utilizada para generar de forma dinámica los input en el form, su objetivo es el de generar en el div
+   * correspondiente los parámetros del generador/algoritmo seleccionado. Para un algoritmo, por cada parámetro se generan:
+   * un label y un input con un valor por defecto; en cambio, para un generador, se crean: un label y un input (o una checkbox si
+   * el parámetro es de tipo booleano) con un valor por defecto y un Tooltip desplegable cada vez que se sitúe el cursor encima.
+   * @param {String} divSelector Parámetro que contiene el identificador del div en el que generar los inputs.
+   * @param {Boolean} isAlgorithmSelect Parámetro que indica si la función se ha llamado a la hora de la selección de un
+   * algoritmo.
+   */
   const generateInputsOnSelectValue = (divSelector, isAlgorithmSelect) => {
     let inputDiv = document.getElementById(divSelector)
     algorithmFieldsClearer(divSelector)
@@ -125,6 +163,10 @@ function LaunchExperimentModal(){
     }
   }
 
+  /**
+   * Esta función se utiliza para llevar a cabo las operaciones de cierre del modal, siendo estas la eliminación de los input generados 
+   * de forma dinámica, así como el borrado del contenido de los inputs estáticos del form y la adición de sus valores por defecto.
+   */
   const closingOperation = () => {
     algorithmFieldsClearer("algorithm-inputs")
     algorithmFieldsClearer("concept-inputs")
@@ -133,6 +175,12 @@ function LaunchExperimentModal(){
     addFormDefaultValues(["total-instances","information-frequency","drift-location","drift-window-instances","experiment-duration"],[TOTAL_INSTANCES, INFORMATION_FREQUENCY, DRIFT_LOCATION, DRIFT_WINDOW_INSTANCES, EXPERIMENT_DURATION])
   }
 
+  /**
+   * Esta función es utilizada para la ejecución de un experimento encargándose de la recogida de los datos de cada input del form, la 
+   * introducción de estos en dos objetos (uno con los parámetros del algoritmo y otro con los parámetros para la generación de datos) y la 
+   * realización de una llamada a la API con estos.
+   * @param {Event} event Parámetro que contiene el evento del envío del form.
+   */
   const handleSubmit = (event) => {
     event.preventDefault()
     let algorithmInputs = document.querySelectorAll('[name*="[algorithm]"]')
@@ -283,6 +331,11 @@ function LaunchExperimentModal(){
   )
 }
 
+/**
+ * Es necesaria para la correcta generación de un modal en React el uso de un Portal, este permite la generación de un componente de React en un elemento HTML 
+ * que se sitúa por encima de la jerarquía de React, permitiendo así que componentes situados por debajo de otros en la jerarquía de React se puedan renderizar
+ * encima.
+ */
 export default function LaunchExperimentModalPortal () {
   return ReactDOM.createPortal(
     <LaunchExperimentModal/>,
