@@ -1,7 +1,0 @@
-*************************************************
-Timestamp 3:
-Rule 0 (ID: -498872202):
-	Variable elevel = level0  level1  level2  level4  
-	Consecuent: 0
-
-

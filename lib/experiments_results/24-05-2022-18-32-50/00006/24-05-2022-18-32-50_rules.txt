@@ -1,8 +1,0 @@
-*************************************************
-Timestamp 5:
-Rule 0 (ID: -294484316):
-	Variable zipcode = zipcode3  zipcode4  zipcode5  zipcode7  zipcode9  
-	Variable loan = Label 1 (0.0 83333.336 166666.67)	Label 3 (166666.67 250000.0 333333.34)	Label 4 (250000.0 333333.34 416666.66)	Label 5 (333333.34 416666.66 500000.0)	
-	Consecuent: 0
-
-

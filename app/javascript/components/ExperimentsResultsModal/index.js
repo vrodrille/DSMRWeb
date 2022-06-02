@@ -4,10 +4,23 @@ import getExperimentsResults from '../../services/getExperimentsResults'
 import { formatExperimentName } from '../../utils/experiment'
 import './ExperimentsResultsModal.css'
 
+/**
+ * Este componente se encarga del renderizado del modal de resultados de los experimentos, listando el nombre de los experimentos cuyos 
+ * resultados han sido almacenados y permitiendo su descarga en un archivo zip.
+ */
 function ExperimentsResultsModal() {
 
+  /**
+   * Este hook useState es utilizado para almacenar un Array con el identificador de los experimentos cuyos resultados han sido almacenados
+   * en el servidor.
+   */
   const [experiments, setExperiments] = useState([])
 
+  /**
+   * Este hook useEffect es utilizado para modificar el estado del useState experiments, su objetivo es que el useState almacene la lista de
+   * experimentos recibida de la API. Debido a que su lista de dependencias está vacía el useEffect se ejecutará únicamente en el renderizado
+   * inicial del componente.
+   */
   useEffect(() => {
     getExperimentsResults()
       .then(response => {
@@ -45,6 +58,11 @@ function ExperimentsResultsModal() {
   )
 }
 
+/**
+ * Es necesaria para la correcta generación de un modal en React el uso de un Portal, este permite la generación de un componente de React en un elemento HTML 
+ * que se sitúa por encima de la jerarquía de React, permitiendo así que componentes situados por debajo de otros en la jerarquía de React se puedan renderizar
+ * encima.
+ */
 export default function ExperimentsResultsModalPortal() {
   return ReactDOM.createPortal(
     <ExperimentsResultsModal />,
