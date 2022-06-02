@@ -24,7 +24,7 @@ function Sidebar(){
 
   /**
    * Este hook useEffect es utilizado para fijar como estado de launchExperimentModal y experimentsResultsModal el Modal de Bootstrap
-   * correspondiente. Su lista de dependencias es vacía, por lo cual se ejecutará únicamente en el primer renderizado.
+   * correspondiente. Su lista de dependencias está vacía, por lo cual se ejecutará únicamente en el primer renderizado del componente.
    */
   useEffect(() => {
     let launchExperimentModal = new bootstrap.Modal(document.getElementById('launch-experiment-modal'), {})
