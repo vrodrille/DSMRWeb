@@ -144,4 +144,4 @@ To finish this section a sequence diagram is included to sum up the interactions
 
 It's necessary to inform that the .gitkeep file present in the experiments_results folder must be deleted once the project has been downloaded or cloned in order for the experiments_results_controller to work properly. The .gitkeep file has been added only to be able to push the experiments_results folder to the repo.
 
-This project has been developed in **MacOS** and it'ss only compatible with **GNU/Linux** and **MacOS**. If you are a MacOS user you have to be cautious with the generation of .DS_Store files while working on the project, as these files mess up the correct performance of some controllers like the experiments_results_controller.
+This project has been developed in **MacOS** and it's only compatible with **GNU/Linux** and **MacOS**. If you are a MacOS user you have to be cautious with the generation of .DS_Store files while working on the project, as these files mess up the correct performance of some controllers like the experiments_results_controller.
