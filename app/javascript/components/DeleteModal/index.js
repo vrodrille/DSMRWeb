@@ -1,6 +1,11 @@
 import React from 'react'
 import ReactDOM  from 'react-dom'
 
+/**
+ * Este componente se encarga de renderizar el modal de confirmación de eliminación de un sensor.
+ * @param {Object} sensor Parámetro que representa al sensor cuya eliminación se desea confirmar.
+ * @param {Function} onDelete Parámetro que contiene la función que se ejecutará en el caso afirmativo en el que se quiera eliminar el sensor.
+ */
 function DeleteModal({ sensor, onDelete }){
   return (
     <div className="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" role="dialog">
@@ -24,6 +29,11 @@ function DeleteModal({ sensor, onDelete }){
   )
 }
 
+/**
+ * Es necesaria para la correcta generación de un modal en React el uso de un Portal, este permite la generación de un componente de React en un elemento HTML 
+ * que se sitúa por encima de la jerarquía de React, permitiendo así que componentes situados por debajo de otros en la jerarquía de React se puedan renderizar
+ * encima.
+ */
 export default function DeleteModalPortal ({ sensor, onDelete }) {
   return ReactDOM.createPortal(
     <DeleteModal sensor={sensor} onDelete={onDelete}/>,
