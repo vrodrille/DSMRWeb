@@ -5,15 +5,43 @@ import createSensor from '../../services/createSensor'
 import updateSensor from '../../services/updateSensor'
 import FormFieldErrorMessage from '../FormFieldErrorMessage'
 
+/**
+ * Este componente se encarga del renderizado de los modales de creación y edición de un sensor, en caso de renderizarse en la creación de
+ * un sensor, todos los campos del formulario estarán vacíos; en caso de renderizarse en la edición de un sensor, los campos del formulario contendrán
+ * la información correspondiente. La validación de datos se llevará a cabo en el servidor, mostrando un mensaje de error en los campos rellenados
+ * de forma errónea mediante un componente FormFieldErrorMessage; esta validación consiste únicamente en comprobar que todos los campos (excepto el de 
+ * información) no son nulos y que la longitud del campo información no supera los 200 caracteres.
+ * @param {Object} latitudeLongitude Parámetro que contiene la latitud y longitud del sensor que se quiere crear.
+ * @param {Object} sensorSelected Parámetro que contiene la información del sensor que se quiere editar.
+ * @param {Function} onClose Parámetro que contiene la función de cierre del modal.
+ * @param {Function} addSensorAndCloseModal Parámetro que contiene la función para añadir el sensor modificado o creado en el componente Map y
+ * ocultar el modal.
+ */
 function SensorFormModal({ latitudeLongitude, sensorSelected, onClose, addSensorAndCloseModal }){
 
+  /**
+   * Este hook useState es utilizado para almacenar el estado de la información del sensor del modal. Si el modal es para la creación de un
+   * sensor el campo id será nulo, en cambio, si el modal es para la edición de un sensor el campo id contendrá el valor de su identificador.
+   */
   const [sensorInModal, setSensorInModal] = useState({id: null, latitude: '', longitude: '', location: '', ip_address: '', information: ''})
+  /**
+   * Este hook useState es utilizado para almacenar el estado de los errores de los campos del formulario del modal.
+   */
   const [errors, setErrors] = useState({ip_address: null, location: null, information: null})
 
+  /**
+   * Este hook useEffect es utilizado para llevar a cabo la asignación inicial del sensor almacenado en este componente. Este useEffect se ejecutará
+   * cuando se modifiquen las props latitudeLongitude y sensorSelected de este componente.
+   */
   useEffect(() => {
     initialAssignation()
   }, [latitudeLongitude, sensorSelected])
 
+  /**
+   * Esta función es utilizada para la asignación inicial del sensor almacenado en este componente. Es decir, si este componente renderiza el modal de
+   * creación de un sensor, incluirá únicamente la latitud y longitud del punto elegido para su creación en el formulario y en el useState sensorInModal; 
+   * sin embargo, si este componente renderiza el modal de edición, incluirá toda la información del sensor.
+   */
   const initialAssignation = () => {
     if (latitudeLongitude){
       setSensorInModal(Object.assign({}, sensorInModal, {latitude: latitudeLongitude.lat, longitude: latitudeLongitude.lng, location: '', ip_address: '', information: ''}))
@@ -26,16 +54,30 @@ function SensorFormModal({ latitudeLongitude, sensorSelected, onClose, addSensor
     }
   }
 
+  /**
+   * Esta función es utilizada para alterar el estado del useState sensorInModal cuando se modifica el correspondiente campo del formulario.
+   * @param {Event} ev Parámetro que contiene el evento de la modificación de los campos del formulario.
+   */
   const handleChange = (ev) => {
     setSensorInModal(Object.assign({}, sensorInModal, {[ev.target.name]: ev.target.value}))
   }
 
+  /**
+   * Esta función es utilizada para llevar a cabo las operaciones de cierre del modal, es decir, la asignación inicial, eliminar todos los
+   * errores y ejecutar la función onClose obtenida mediante las props.
+   */
   const closingManagement = () => {
     initialAssignation()
     setErrors({ip_address: null, location: null, information: null})
     onClose()
   }
 
+  /**
+   * Esta función es utilizada para llevar a cabo el envío del formulario, es decir, para crear un sensor o editar un sensor con los datos 
+   * aportados. Realiza la correspondiente llamada a la API y añade el sensor al componente Map y cierra el modal o, si se ha producido un
+   * error, lo añade al useState errors.
+   * @param {Event} ev Parámetro que contiene el evento del envío del formulario.
+   */
   const handleSubmit = (ev) => {
     ev.preventDefault() 
     if (errors) {
@@ -113,6 +155,11 @@ function SensorFormModal({ latitudeLongitude, sensorSelected, onClose, addSensor
 }
 
 
+/**
+ * Es necesaria para la correcta generación de un modal en React el uso de un Portal, este permite la generación de un componente de React en un elemento HTML 
+ * que se sitúa por encima de la jerarquía de React, permitiendo así que componentes situados por debajo de otros en la jerarquía de React se puedan renderizar
+ * encima.
+ */
 export default function SensorFormModalPortal ({ latitudeLongitude, sensorSelected, onClose, addSensorAndCloseModal }) {
   return ReactDOM.createPortal(
     <SensorFormModal latitudeLongitude={latitudeLongitude} onClose={onClose} addSensorAndCloseModal={addSensorAndCloseModal} sensorSelected={sensorSelected}/>,
