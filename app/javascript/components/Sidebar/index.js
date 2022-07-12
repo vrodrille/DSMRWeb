@@ -20,7 +20,13 @@ function Sidebar(){
    * Este hook useState es empleado para almacenar el componente Modal de Bootstrap que se utilizará para controlar la visualización y
    * ocultamiento del componente ExperimentsResultsModal.
    */
-  const [experimentsResultsModal, setExperimentsResultModal] = useState(null)
+  const [experimentsResultsModal, setExperimentsResultsModal] = useState(null)
+
+  /**
+   * Este hook useState es empleado para almacenar un Boolean que indica si el componente ExperimentsResultsModal se está visualizando
+   * o no.
+   */
+  const [experimentsResultsModalIsOpen, setExperimentsResultsModalIsOpen] = useState(false)
 
   /**
    * Este hook useEffect es utilizado para fijar como estado de launchExperimentModal y experimentsResultsModal el Modal de Bootstrap
@@ -30,7 +36,7 @@ function Sidebar(){
     let launchExperimentModal = new bootstrap.Modal(document.getElementById('launch-experiment-modal'), {})
     setLaunchExperimentModal(launchExperimentModal)
     let experimentsResultModal = new bootstrap.Modal(document.getElementById('experiments-results-modal'), {})
-    setExperimentsResultModal(experimentsResultModal)
+    setExperimentsResultsModal(experimentsResultModal)
   }, [])
 
   const showLaunchExperimentModal = () => {
@@ -39,6 +45,14 @@ function Sidebar(){
 
   const showExperimentsResultsModal = () =>{
     experimentsResultsModal.show()
+    setExperimentsResultsModalIsOpen(true)
+  }
+
+  /**
+   * Esta función es utilizada para gestionar el cierre del modal renderizado por el componente ExperimentsResultsModal.
+   */
+  const handleClose = () => {
+    setExperimentsResultsModalIsOpen(false)
   }
 
   return (
@@ -48,7 +62,7 @@ function Sidebar(){
         <button type="button" className="btn btn-primary sidebar-button" onClick={showExperimentsResultsModal}>Mostrar experimentos</button>
       </aside>
       <LaunchExperimentModal />
-      <ExperimentsResultsModal />
+      <ExperimentsResultsModal isOpen={experimentsResultsModalIsOpen} onClose={handleClose} />
     </>
   )
 }
